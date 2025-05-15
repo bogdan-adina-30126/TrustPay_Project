@@ -1,0 +1,404 @@
+/* Stiluri pentru container principal */
+.app-container {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Stiluri pentru header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: #1a73e8;
+  padding: 15px 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.header-right button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  width: 50px;
+  height: auto;
+}
+
+.logo-text {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.username {
+  font-weight: 500;
+}
+
+/* Stiluri pentru Chrome-style tabs */
+.chrome-tabs-container {
+  background-color: #f0f3f5;
+  padding: 0 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+
+.chrome-tab {
+  background: transparent;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 14px 28px;
+  margin: 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #5f6368;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  margin-bottom: -1px;
+}
+
+.chrome-tab-active {
+  background: #fff;
+  color: #1a73e8;
+  border-top: 2px solid #1a73e8;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+/* Stiluri pentru tab-uri de conturi */
+.account-tab {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  padding: 30px;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.account-info {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.balance-label {
+  font-size: 18px;
+  color: #5f6368;
+  margin: 0 0 5px 0;
+}
+
+.account-title {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #202124;
+  display: none; /* Ascundem titlul - va fi doar în tab */
+}
+
+.account-balance {
+  font-size: 32px;
+  font-weight: 500;
+  color: #202124;
+  margin: 5px 0;
+}
+
+.account-actions-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.account-actions-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.account-actions-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button {
+  padding: 16px 32px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 180px;
+}
+
+.transfer-button {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.transfer-button:hover {
+  background-color: #1765cc;
+}
+
+.history-button {
+  background-color: #f1f3f4;
+  color: #5f6368;
+  height: 100%;
+}
+
+.history-button:hover {
+  background-color: #e8eaed;
+}
+
+.history-button-active {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  border: 1px solid #d2e3fc;
+}
+
+/* Stiluri pentru notificarea de confirmare */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1100;
+  font-size: 15px;
+  font-weight: 500;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.success-notification {
+  background-color: #e6f4ea;
+  color: #137333;
+  border: 1px solid #ceead6;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-icon {
+  font-size: 16px;
+}
+
+/* Stiluri pentru lista de tranzacții */
+.transaction-history-container {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.transaction-history-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #202124;
+  margin-bottom: 15px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.transaction-item {
+  padding: 12px 10px;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-date {
+  color: #5f6368;
+  font-size: 12px;
+}
+
+.transaction-amount {
+  font-weight: 500;
+}
+
+.incoming-transaction {
+  color: #137333;
+}
+
+.outgoing-transaction {
+  color: #c5221f;
+}
+
+.no-transactions {
+  text-align: center;
+  padding: 20px;
+  color: #5f6368;
+  font-style: italic;
+}
+
+.loading-transactions {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Stiluri pentru modale/overlayuri */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-title {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #202124;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #5f6368;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  font-size: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background: #f1f3f4;
+  color: #5f6368;
+}
+
+.confirm-button {
+  background: #1a73e8;
+  color: white;
+}
+
+.message-container {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.success-message {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.error-message {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+/* Responsivitate */
+@media (max-width: 768px) {
+  .account-actions-container {
+    flex-direction: column;
+  }
+  
+  .account-actions-right {
+    justify-content: stretch;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+}

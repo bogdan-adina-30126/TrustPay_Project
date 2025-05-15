@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "AsTExcJykqwXYJ+L3WfnZoq3XJAh9Pagsce/hfevInc=",
+  "Source": "TrustPay",
+  "BasePath": "_content/TrustPay",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

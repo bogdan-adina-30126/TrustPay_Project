@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "E+WmmaxSOYMqcAQ3U7dRW3pgknOuH1FdKHU7ijuUnWU=",
+  "Source": "TrustPay",
+  "BasePath": "_content/TrustPay",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,182 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './Dashboard.css';
 import logo from './logo1.png';
-
-// Stiluri inline pentru noul design
-const styles = {
-  chromeTabsContainer: {
-    backgroundColor: '#f0f3f5',
-    padding: '0 20px',
-    borderBottom: '1px solid #e0e0e0',
-    display: 'flex',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-    marginBottom: '20px'
-  },
-  chromeTab: {
-    background: 'transparent',
-    border: 'none',
-    borderRadius: '8px 8px 0 0',
-    padding: '14px 28px',
-    margin: '0 6px',
-    fontSize: '16px',
-    fontWeight: '600',
-    color: '#5f6368',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    position: 'relative',
-    marginBottom: '-1px'
-  },
-  chromeTabActive: {
-    background: '#fff',
-    color: '#1a73e8',
-    borderTop: '2px solid #1a73e8',
-    boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
-  },
-  accountTab: {
-    backgroundColor: '#fff',
-    borderRadius: '16px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
-    padding: '30px',
-    margin: '30px 0',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '30px'
-  },
-  accountInfo: {
-    borderBottom: '1px solid #eaeaea',
-    paddingBottom: '24px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center'
-  },
-  balanceLabel: {
-    fontSize: '18px',
-    color: '#5f6368',
-    margin: '0 0 5px 0'
-  },
-  accountTitle: {
-    fontSize: '20px',
-    margin: '0 0 8px 0',
-    color: '#202124',
-    display: 'none' // Ascundem titlul - va fi doar în tab
-  },
-  accountBalance: {
-    fontSize: '32px',
-    fontWeight: '500',
-    color: '#202124',
-    margin: '5px 0'
-  },
-  accountActions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: '30px'
-  },
-  actionButton: {
-    padding: '16px 32px',
-    borderRadius: '10px',
-    border: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    minWidth: '180px'
-  },
-  transferButton: {
-    backgroundColor: '#1a73e8',
-    color: 'white'
-  },
-  historyButton: {
-    backgroundColor: '#f1f3f4',
-    color: '#5f6368'
-  },
-  headerLogo: {
-    width: '50px',  // Mărim logo-ul
-    height: 'auto'
-  },
-  logoContainer: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  logoText: {
-    marginLeft: '10px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    color: '#fff'
-  },
-  // Stiluri pentru notificarea de confirmare
-  notification: {
-    position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    padding: '12px 20px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-    zIndex: 1100,
-    fontSize: '15px',
-    fontWeight: '500',
-    transition: 'opacity 0.3s, transform 0.3s',
-    opacity: 1,
-    transform: 'translateY(0)'
-  },
-  successNotification: {
-    backgroundColor: '#e6f4ea',
-    color: '#137333',
-    border: '1px solid #ceead6'
-  },
-  // Stiluri pentru lista de tranzacții
-  transactionHistoryContainer: {
-    marginTop: '20px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '12px',
-    padding: '20px',
-    border: '1px solid #e0e0e0'
-  },
-  transactionHistoryTitle: {
-    fontSize: '18px',
-    fontWeight: '600',
-    color: '#202124',
-    marginBottom: '15px',
-    padding: '0 0 10px 0',
-    borderBottom: '1px solid #e0e0e0'
-  },
-  transactionList: {
-    listStyle: 'none',
-    padding: '0',
-    margin: '0',
-    maxHeight: '300px',
-    overflowY: 'auto'
-  },
-  transactionItem: {
-    padding: '12px 10px',
-    borderBottom: '1px solid #eaeaea',
-    fontSize: '14px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  transactionDate: {
-    color: '#5f6368',
-    fontSize: '12px'
-  },
-  transactionAmount: {
-    fontWeight: '500'
-  },
-  incomingTransaction: {
-    color: '#137333'
-  },
-  outgoingTransaction: {
-    color: '#c5221f'
-  },
-  noTransactions: {
-    textAlign: 'center',
-    padding: '20px',
-    color: '#5f6368',
-    fontStyle: 'italic'
-  }
-};
 
 function Dashboard({ user, onLogout }) {
   const [accounts, setAccounts] = useState([]);
@@ -254,7 +78,7 @@ function Dashboard({ user, onLogout }) {
           currency: transferCurrency,
           transactionType: "Transfer",
           fromUserName,   
-        toUserName
+          toUserName
         }),
       });
 
@@ -398,9 +222,9 @@ function Dashboard({ user, onLogout }) {
   return (
     <div className="app-container">
       <header className="header">
-        <div className="header-left" style={styles.logoContainer}>
-          <img src={logo} alt="TrustPay Logo" style={styles.headerLogo} />
-          <span style={styles.logoText}>Trust Pay - Siguranța banilor tăi!</span>
+        <div className="header-left logo-container">
+          <img src={logo} alt="TrustPay Logo" className="header-logo" />
+          <span className="logo-text">Trust Pay - Siguranța banilor tăi!</span>
         </div>
         <div className="header-right">
           <span className="username">Salut, {user.userName}!</span>
@@ -408,15 +232,12 @@ function Dashboard({ user, onLogout }) {
         </div>
       </header>
 
-      <div style={styles.chromeTabsContainer}>
+      <div className="chrome-tabs-container">
         {accountTypes.map((type) => (
           <button
             key={type}
             onClick={() => setCurrentTab(type)}
-            style={{
-              ...styles.chromeTab,
-              ...(currentTab === type ? styles.chromeTabActive : {})
-            }}
+            className={`chrome-tab ${currentTab === type ? 'chrome-tab-active' : ''}`}
           >
             {type}
           </button>
@@ -427,24 +248,16 @@ function Dashboard({ user, onLogout }) {
         {accounts
           .filter((acc) => acc.accountType === currentTab)
           .map((acc) => (
-            <div key={acc.accountId} style={styles.accountTab}>
-              <div style={styles.accountInfo}>
-                <h3 style={styles.accountTitle}>{acc.accountType}</h3>
-                <div style={styles.balanceLabel}>Balanță:</div>
-                <p style={styles.accountBalance}>{acc.balance} {acc.currency}</p>
+            <div key={acc.accountId} className="account-tab">
+              <div className="account-info">
+                <h3 className="account-title">{acc.accountType}</h3>
+                <div className="balance-label">Balanță:</div>
+                <p className="account-balance">{acc.balance} {acc.currency}</p>
               </div>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: '15px'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '15px'
-                }}>
+              <div className="account-actions-container">
+                <div className="account-actions-left">
                   <button 
-                    style={{...styles.actionButton, ...styles.transferButton}}
+                    className="action-button transfer-button"
                     onClick={() => {
                       setFromAccountId(acc.accountId);
                       setShowTransferForm(true);
@@ -454,7 +267,7 @@ function Dashboard({ user, onLogout }) {
                     Mutare fonduri
                   </button>
                   <button 
-                    style={{...styles.actionButton, ...styles.transferButton}}
+                    className="action-button transfer-button"
                     onClick={() => {
                       setFromAccountId(acc.accountId);
                       setShowTransferForm(true);
@@ -464,19 +277,9 @@ function Dashboard({ user, onLogout }) {
                     Transfer către alt utilizator
                   </button>
                 </div>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end'
-                }}>
+                <div className="account-actions-right">
                   <button 
-                    style={{
-                      ...styles.actionButton, 
-                      ...styles.historyButton,
-                      height: '100%',
-                      backgroundColor: showTransactionHistory[acc.accountId] ? '#e8f0fe' : '#f1f3f4',
-                      color: showTransactionHistory[acc.accountId] ? '#1a73e8' : '#5f6368',
-                      border: showTransactionHistory[acc.accountId] ? '1px solid #d2e3fc' : 'none'
-                    }}
+                    className={`action-button history-button ${showTransactionHistory[acc.accountId] ? 'history-button-active' : ''}`}
                     onClick={() => toggleTransactionHistory(acc.accountId)}
                   >
                     Istoric Tranzacții
@@ -486,33 +289,30 @@ function Dashboard({ user, onLogout }) {
               
               {/* Secțiunea de istoric tranzacții */}
               {showTransactionHistory[acc.accountId] && (
-                <div style={styles.transactionHistoryContainer}>
-                  <h4 style={styles.transactionHistoryTitle}>Istoric Tranzacții</h4>
+                <div className="transaction-history-container">
+                  <h4 className="transaction-history-title">Istoric Tranzacții</h4>
                   
                   {loadingTransactions[acc.accountId] ? (
-                    <div style={{ textAlign: 'center', padding: '20px' }}>
+                    <div className="loading-transactions">
                       Încărcare tranzacții...
                     </div>
                   ) : transactions[acc.accountId] && transactions[acc.accountId].length > 0 ? (
-                    <ul style={styles.transactionList}>
+                    <ul className="transaction-list">
                       {transactions[acc.accountId].map((transaction, index) => {
                         const isIncoming = transaction.toAccountId === acc.accountId;
                         return (
-                          <li key={index} style={styles.transactionItem}>
+                          <li key={index} className="transaction-item">
                             <div>
                               <span>
                                 {isIncoming 
                                   ? `→ De la contul ${transaction.fromAccountId}` 
                                   : `→ Către contul ${transaction.toAccountId}`}
                               </span>
-                              <div style={styles.transactionDate}>
+                              <div className="transaction-date">
                                 {formatDate(transaction.transactionDate)}
                               </div>
                             </div>
-                            <span style={{
-                              ...styles.transactionAmount,
-                              ...(isIncoming ? styles.incomingTransaction : styles.outgoingTransaction)
-                            }}>
+                            <span className={`transaction-amount ${isIncoming ? 'incoming-transaction' : 'outgoing-transaction'}`}>
                               {isIncoming ? '+' : '-'}{transaction.amount} {transaction.currency}
                             </span>
                           </li>
@@ -520,7 +320,7 @@ function Dashboard({ user, onLogout }) {
                       })}
                     </ul>
                   ) : (
-                    <div style={styles.noTransactions}>
+                    <div className="no-transactions">
                       Nu există tranzacții pentru acest cont.
                     </div>
                   )}
@@ -531,42 +331,16 @@ function Dashboard({ user, onLogout }) {
       </div>
 
       {showTransferForm && transferType === 'funds' && (
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '30px',
-          borderRadius: '12px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
-          width: '90%',
-          maxWidth: '500px',
-          zIndex: 1000,
-          animation: 'fadeIn 0.3s ease-in-out'
-        }}>
-          <h3 style={{
-            fontSize: '20px',
-            marginTop: 0,
-            marginBottom: '24px',
-            color: '#202124'
-          }}>Mutare fonduri</h3>
+        <div className="transfer-modal">
+          <h3 className="transfer-modal-title">Mutare fonduri</h3>
           
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Către cont:
               <select
                 value={toAccountId}
                 onChange={(e) => setToAccountId(e.target.value)}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               >
                 <option value="">Selectează</option>
                 {accounts
@@ -580,42 +354,26 @@ function Dashboard({ user, onLogout }) {
             </label>
           </div>
           
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Suma:
               <input
                 type="number"
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
                 placeholder="Introdu suma"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               />
             </label>
           </div>
           
-          <div style={{ marginBottom: '30px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Valuta:
               <select
                 value={transferCurrency}
                 onChange={(e) => setTransferCurrency(e.target.value)}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               >
                 <option value="RON">RON</option>
                 <option value="EUR">EUR</option>
@@ -624,33 +382,15 @@ function Dashboard({ user, onLogout }) {
             </label>
           </div>
           
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+          <div className="modal-actions">
             <button 
-              style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
-                border: 'none',
-                background: '#f1f3f4',
-                color: '#5f6368',
-                fontSize: '15px',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}
+              className="cancel-button"
               onClick={() => setShowTransferForm(false)}
             >
               Anulează
             </button>
             <button 
-              style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
-                border: 'none',
-                background: '#1a73e8',
-                color: 'white',
-                fontSize: '15px',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}
+              className="submit-button"
               onClick={transferFunds}
             >
               Transferă
@@ -658,14 +398,7 @@ function Dashboard({ user, onLogout }) {
           </div>
 
           {message && (
-            <div style={{
-              marginTop: '20px',
-              padding: '12px',
-              borderRadius: '8px',
-              backgroundColor: messageType === 'success' ? '#e6f4ea' : messageType === 'error' ? '#fce8e6' : '#e8f0fe',
-              color: messageType === 'success' ? '#137333' : messageType === 'error' ? '#c5221f' : '#1967d2',
-              fontSize: '14px'
-            }}>
+            <div className={`message-box ${messageType}-message`}>
               {message}
             </div>
           )}
@@ -673,84 +406,42 @@ function Dashboard({ user, onLogout }) {
       )}
 
       {showTransferForm && transferType === 'user' && (
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '30px',
-          borderRadius: '12px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
-          width: '90%',
-          maxWidth: '500px',
-          zIndex: 1000,
-          animation: 'fadeIn 0.3s ease-in-out'
-        }}>
-          <h3 style={{
-            fontSize: '20px',
-            marginTop: 0,
-            marginBottom: '24px',
-            color: '#202124'
-          }}>Transfer către alt utilizator</h3>
+        <div className="transfer-modal">
+          <h3 className="transfer-modal-title">Transfer către alt utilizator</h3>
           
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Către utilizator:
               <input
                 type="text"
                 value={toUserName}
                 onChange={(e) => setToUserName(e.target.value)}
                 placeholder="Introdu numele utilizatorului"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               />
             </label>
           </div>
           
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Suma:
               <input
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Introdu suma"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               />
             </label>
           </div>
           
-          <div style={{ marginBottom: '30px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontSize: '15px', color: '#5f6368' }}>
+          <div className="form-group">
+            <label className="form-label">
               Valuta:
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px',
-                  marginTop: '6px',
-                  borderRadius: '8px',
-                  border: '1px solid #dadce0',
-                  fontSize: '16px'
-                }}
+                className="form-control"
               >
                 <option value="RON">RON</option>
                 <option value="EUR">EUR</option>
@@ -759,33 +450,15 @@ function Dashboard({ user, onLogout }) {
             </label>
           </div>
           
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+          <div className="modal-actions">
             <button 
-              style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
-                border: 'none',
-                background: '#f1f3f4',
-                color: '#5f6368',
-                fontSize: '15px',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}
+              className="cancel-button"
               onClick={() => setShowTransferForm(false)}
             >
               Anulează
             </button>
             <button 
-              style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
-                border: 'none',
-                background: '#1a73e8',
-                color: 'white',
-                fontSize: '15px',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}
+              className="submit-button"
               onClick={transferBetweenUsers}
             >
               Transferă
@@ -793,14 +466,7 @@ function Dashboard({ user, onLogout }) {
           </div>
 
           {message && (
-            <div style={{
-              marginTop: '20px',
-              padding: '12px',
-              borderRadius: '8px',
-              backgroundColor: messageType === 'success' ? '#e6f4ea' : messageType === 'error' ? '#fce8e6' : '#e8f0fe',
-              color: messageType === 'success' ? '#137333' : messageType === 'error' ? '#c5221f' : '#1967d2',
-              fontSize: '14px'
-            }}>
+            <div className={`message-box ${messageType}-message`}>
               {message}
             </div>
           )}
@@ -809,12 +475,9 @@ function Dashboard({ user, onLogout }) {
       
       {/* Notificare de confirmare pentru transfer */}
       {showNotification && (
-        <div style={{
-          ...styles.notification,
-          ...styles.successNotification
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '16px' }}>✓</span>
+        <div className="notification success-notification">
+          <div className="notification-content">
+            <span className="notification-icon">✓</span>
             <span>{notificationMessage}</span>
           </div>
         </div>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hgyCWc9LrSw=",
+  "dgSpecHash": "0j+DZv0sC4s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
+  "projectFilePath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrada\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Andrada\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

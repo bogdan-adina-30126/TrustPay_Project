@@ -8193,11 +8193,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
+      "projectUniqueName": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
       "projectName": "TrustPay",
-      "projectPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
+      "projectPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
       "packagesPath": "C:\\Users\\Andrada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\obj\\",
+      "outputPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,47 +1,22 @@
-/* Stiluri pentru container principal */
+/* Dashboard CSS - Extras din stilurile inline */
+
+/* Stiluri pentru container și header */
 .app-container {
-  font-family: Arial, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Stiluri pentru header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  background-color: #1a73e8;
-  padding: 15px 20px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: #00796b;
   color: white;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.header-right button {
-  background-color: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.header-right button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .logo-container {
@@ -61,11 +36,17 @@
   color: #fff;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .username {
   font-weight: 500;
 }
 
-/* Stiluri pentru Chrome-style tabs */
+/* Stiluri pentru tabs de tip Chrome */
 .chrome-tabs-container {
   background-color: #f0f3f5;
   padding: 0 20px;
@@ -98,7 +79,7 @@
   box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
 
-/* Stiluri pentru tab-uri de conturi */
+/* Stiluri pentru conturi */
 .account-tab {
   background-color: #fff;
   border-radius: 16px;
@@ -172,56 +153,16 @@
   color: white;
 }
 
-.transfer-button:hover {
-  background-color: #1765cc;
-}
-
 .history-button {
   background-color: #f1f3f4;
   color: #5f6368;
   height: 100%;
 }
 
-.history-button:hover {
-  background-color: #e8eaed;
-}
-
 .history-button-active {
   background-color: #e8f0fe;
   color: #1a73e8;
   border: 1px solid #d2e3fc;
-}
-
-/* Stiluri pentru notificarea de confirmare */
-.notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1100;
-  font-size: 15px;
-  font-weight: 500;
-  transition: opacity 0.3s, transform 0.3s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.success-notification {
-  background-color: #e6f4ea;
-  color: #137333;
-  border: 1px solid #ceead6;
-}
-
-.notification-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.notification-icon {
-  font-size: 16px;
 }
 
 /* Stiluri pentru lista de tranzacții */
@@ -288,37 +229,23 @@
   padding: 20px;
 }
 
-/* Stiluri pentru modale/overlayuri */
-.modal-overlay {
+/* Stiluri pentru formular transfer */
+.transfer-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.2);
   width: 90%;
   max-width: 500px;
+  z-index: 1000;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.modal-title {
+.transfer-modal-title {
   font-size: 20px;
   margin-top: 0;
   margin-bottom: 24px;
@@ -352,26 +279,30 @@
   justify-content: flex-end;
 }
 
-.button {
+.cancel-button {
   padding: 12px 24px;
   border-radius: 8px;
   border: none;
+  background: #f1f3f4;
+  color: #5f6368;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
 }
 
-.cancel-button {
-  background: #f1f3f4;
-  color: #5f6368;
-}
-
-.confirm-button {
+.submit-button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
   background: #1a73e8;
   color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.message-container {
+/* Stiluri pentru mesaje */
+.message-box {
   margin-top: 20px;
   padding: 12px;
   border-radius: 8px;
@@ -388,17 +319,51 @@
   color: #c5221f;
 }
 
-/* Responsivitate */
-@media (max-width: 768px) {
-  .account-actions-container {
-    flex-direction: column;
+.info-message {
+  background-color: #e8f0fe;
+  color: #1967d2;
+}
+
+/* Stiluri pentru notificări */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1100;
+  font-size: 15px;
+  font-weight: 500;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.success-notification {
+  background-color: #e6f4ea;
+  color: #137333;
+  border: 1px solid #ceead6;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-icon {
+  font-size: 16px;
+}
+
+/* Animație pentru modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
   }
-  
-  .account-actions-right {
-    justify-content: stretch;
-  }
-  
-  .action-button {
-    width: 100%;
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }

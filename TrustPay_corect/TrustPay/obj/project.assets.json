@@ -8187,24 +8187,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Andrada\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\UTCN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
+      "projectUniqueName": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
       "projectName": "TrustPay",
-      "projectPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
-      "packagesPath": "C:\\Users\\Andrada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect cu folder nou\\OriginTrustPay\\TrustPay_corect\\TrustPay\\obj\\",
+      "projectPath": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\TrustPay.csproj",
+      "packagesPath": "C:\\Users\\UTCN\\.nuget\\packages\\",
+      "outputPath": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Andrada\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\UTCN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8212,6 +8207,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8229,8 +8225,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -8278,7 +8273,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

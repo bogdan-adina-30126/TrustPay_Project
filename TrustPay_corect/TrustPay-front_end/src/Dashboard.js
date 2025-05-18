@@ -212,6 +212,39 @@ function Dashboard({ user, onLogout }) {
     return Number.isInteger(number) ? number : number.toFixed(2);
   };
 
+  const handleDeleteAccount = async (account, userAccounts, fetchAccounts) => {
+  const confirmDelete = window.confirm(`Sigur dorești să ștergi contul ${account.accountType} (${account.currency})?`);
+
+  if (!confirmDelete) return;
+
+  if (account.balance > 0) {
+    alert(
+      `Nu poți șterge acest cont deoarece are un sold de ${account.balance} ${account.currency}.\n` +
+      `Te rugăm să selectezi contul în care vrei să transferi banii înainte de a șterge acest cont.`
+    );
+    // Aici poți extinde cu logica de selectare transfer, dacă vrei.
+    return;
+  }
+
+  try {
+    const response = await fetch(`https://localhost:7157/api/Accounts/${account.accountId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      alert("Contul a fost șters cu succes.");
+      if (fetchAccounts) fetchAccounts(); // Reîncarcă lista conturilor
+    } else {
+      const errorText = await response.text();
+      alert("Eroare la ștergerea contului: " + errorText);
+    }
+  } catch (error) {
+    console.error("Eroare:", error);
+    alert("Eroare tehnică: " + error.message);
+  }
+};
+
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString('ro-RO', {
@@ -251,48 +284,71 @@ function Dashboard({ user, onLogout }) {
         ))}
       </div>
 
-      <div className="tab-content">
-        {accounts
-          .filter((acc) => acc.accountType === currentTab)
-          .map((acc) => (
-            <div key={acc.accountId} className="account-tab">
-              <div className="account-info">
-                <h3 className="account-title">{acc.accountType}</h3>
-                <div className="balance-label">Balanță:</div>
-                <p className="account-balance">{Number.isInteger(acc.balance) ? acc.balance : acc.balance.toFixed(2)} {acc.currency}</p>
-              </div>
-              <div className="account-actions-container">
-                <div className="account-actions-left">
-                  <button 
-                    className="action-button transfer-button"
-                    onClick={() => {
-                      setFromAccountId(acc.accountId);
-                      setShowTransferForm(true);
-                      setTransferType('funds');
-                    }}
-                  >
-                    Mutare fonduri
-                  </button>
-                  <button 
-                    className="action-button transfer-button"
-                    onClick={() => {
-                      setFromAccountId(acc.accountId);
-                      setShowTransferForm(true);
-                      setTransferType('user');
-                    }}
-                  >
-                    Transfer către alt utilizator
-                  </button>
-                </div>
-                <div className="account-actions-right">
-                  <button 
-                    className={`action-button history-button ${showTransactionHistory[acc.accountId] ? 'history-button-active' : ''}`}
-                    onClick={() => toggleTransactionHistory(acc.accountId)}
-                  >
-                    Istoric Tranzacții
-                  </button>
-                </div>
-              </div>
+    <div className="tab-content">
+  {accounts
+    .filter((acc) => acc.accountType === currentTab)
+    .map((acc) => (
+      <div key={acc.accountId} className="account-tab">
+        <div className="account-info">
+          <h3 className="account-title">{acc.accountType}</h3>
+          <div className="balance-label">Balanță:</div>
+          <p className="account-balance">
+            {Number.isInteger(acc.balance) ? acc.balance : acc.balance.toFixed(2)} {acc.currency}
+          </p>
+        </div>
+        <div className="account-actions-container">
+          <div className="account-actions-left">
+            <button 
+              className="action-button transfer-button"
+              onClick={() => {
+                setFromAccountId(acc.accountId);
+                setShowTransferForm(true);
+                setTransferType('funds');
+              }}
+            >
+              Mutare fonduri
+            </button>
+            <button 
+              className="action-button transfer-button"
+              onClick={() => {
+                setFromAccountId(acc.accountId);
+                setShowTransferForm(true);
+                setTransferType('user');
+              }}
+            >
+              Transfer către alt utilizator
+            </button>
+          </div>
+          <div className="account-actions-right">
+            <button 
+              className={`action-button history-button ${showTransactionHistory[acc.accountId] ? 'history-button-active' : ''}`}
+              onClick={() => toggleTransactionHistory(acc.accountId)}
+            >
+              Istoric Tranzacții
+            </button>
+            {/* Butonul de ștergere doar dacă tipul contului nu e Personal */}
+            {acc.accountType !== "Personal" && (
+              <button
+                className="action-button delete-button"
+                style={{
+                  backgroundColor: "crimson",
+                  color: "white",
+                  marginLeft: "10px",
+                  border: "none",
+                  borderRadius: "6px",
+                  padding: "6px 12px",
+                  cursor: "pointer"
+                }}
+                onClick={() => handleDeleteAccount(acc, accounts, fetchAccounts)}
+              >
+                Șterge cont
+              </button>
+            )}
+          </div>
+        </div>
+     
+
+
               
               {/* Secțiunea de istoric tranzacții */}
               {showTransactionHistory[acc.accountId] && (

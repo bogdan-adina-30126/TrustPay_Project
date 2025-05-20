@@ -1,26 +1,66 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginForm from './LoginForm';
-import Dashboard from './Dashboard';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Dashboard from "./Dashboard";
+import TransactionHistoryPage from "./TransactionHistoryPage";
+import Profile from "./Profile";
+import LoginForm from "./LoginForm";
 
 function App() {
-  const [user, setUser] = useState(null); // user conține userId și userName
-
+  const [user, setUser] = useState(null);
+  
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+  
+  const handleLogout = () => {
+    setUser(null);
+  };
+  
   return (
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/login"
           element={
-            user ? <Navigate to="/dashboard" /> : <LoginForm onLogin={setUser} />
+            user ? <Navigate to="/" /> : <LoginForm onLogin={handleLogin} />
           }
         />
         <Route
-          path="/dashboard"
+          path="/"
           element={
-            user ? <Dashboard user={user} onLogout={() => setUser(null)} /> : <Navigate to="/" />
+            user ? (
+              <Dashboard user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
+        <Route
+          path="/istoric-tranzactii"
+          element={
+            user ? (
+              <TransactionHistoryPage user={user} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            user ? (
+              <Profile user={user} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>
     </Router>
   );

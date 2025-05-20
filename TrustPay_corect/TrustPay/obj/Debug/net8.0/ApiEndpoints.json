@@ -374,8 +374,8 @@
         "IsRequired": true
       },
       {
-        "Name": "user",
-        "Type": "TrustPay.Models.User",
+        "Name": "updatedUser",
+        "Type": "TrustPay.DTO.UserUpdateDto",
         "IsRequired": true
       }
     ],

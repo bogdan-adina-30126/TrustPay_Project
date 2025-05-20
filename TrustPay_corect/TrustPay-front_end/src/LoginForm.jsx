@@ -32,17 +32,21 @@ function LoginForm({ onLogin }) {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!userName || !email || !password) {
+    setMessage("Toate câmpurile sunt obligatorii.");
+    return;
+  }
     try {
       const data = await loginUser(userName, email, password);
-      if (data.message === "Login successful") {
+      if (data.message === "Autentificare") {
         setMessage(data.message);
-        onLogin({ userId: data.userId, userName: data.userName }); // salvăm întregul obiect
+        onLogin({ userId: data.userId, userName: data.userName });
         navigate('/dashboard');
       } else {
-        setMessage("Unable to sign in. Please check your credentials.");
+        setMessage("Autentificarea a eșuat. Vă rugăm să verificați datele de conectare.");
       }
     } catch (error) {
-      setMessage("Unable to sign in. Please check your credentials.");
+      setMessage("Autentificarea a eșuat. Vă rugăm să verificați datele de conectare.");
     }
   };
   
@@ -72,7 +76,7 @@ function LoginForm({ onLogin }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Login</button>
+          <button type="submit">Autentificare</button>
         </form>
         {message && <p className="login-message">{message}</p>}
       </div>

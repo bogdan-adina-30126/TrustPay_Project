@@ -2,7 +2,7 @@
 
 /* Stiluri pentru container și header */
 .app-container {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .header {
@@ -76,14 +76,14 @@
   background: #fff;
   color: #1a73e8;
   border-top: 2px solid #1a73e8;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Stiluri pentru conturi */
 .account-tab {
   background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   padding: 30px;
   margin: 30px 0;
   display: flex;
@@ -151,6 +151,27 @@
 .transfer-button {
   background-color: #1a73e8;
   color: white;
+}
+
+/* Stilul pentru butonul de ștergere - roșu */
+.delete-button {
+  background-color: #ff3b30;
+  color: white;
+  border: 1px solid #e02d22;
+}
+
+.delete-button:hover {
+  background-color: #e02d22;
+}
+
+.delete-button-red {
+  background-color: #ff3b30;
+  color: white;
+  border: 1px solid #e02d22;
+}
+
+.delete-button-red:hover {
+  background-color: #e02d22;
 }
 
 .history-button {
@@ -238,7 +259,7 @@
   background-color: white;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 500px;
   z-index: 1000;
@@ -331,7 +352,7 @@
   right: 20px;
   padding: 12px 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1100;
   font-size: 15px;
   font-weight: 500;
@@ -366,4 +387,48 @@
     opacity: 1;
     transform: translate(-50%, -50%);
   }
+}
+
+/* Stiluri pentru modal de confirmare ștergere */
+.delete-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  padding: 25px;
+  width: 90%;
+  max-width: 450px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.delete-modal-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.delete-modal-content {
+  margin-bottom: 20px;
+}
+
+.delete-confirm-button {
+  background-color: #ff3b30;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.delete-confirm-button:hover {
+  background-color: #e02d22;
 }

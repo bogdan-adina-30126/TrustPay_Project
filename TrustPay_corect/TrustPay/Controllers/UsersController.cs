@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrustPay.Data;
+using TrustPay.DTO;
 using TrustPay.Models;
 
 namespace TrustPay.Controllers
@@ -37,7 +38,7 @@ namespace TrustPay.Controllers
                 user.UserId,
                 user.UserName,
                 user.Email,
-                Message = "Login successful"
+                Message = "Autentificare"
             });
         }
         [HttpGet("user/{userId}/accounts")]
@@ -75,14 +76,16 @@ namespace TrustPay.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, [FromBody] UserUpdateDto updatedUser)
         {
-            if (id != user.UserId)
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            existingUser.UserName = updatedUser.UserName;
+            existingUser.Email = updatedUser.Email;
 
             try
             {

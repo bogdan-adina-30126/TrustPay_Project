@@ -336,16 +336,20 @@ function Dashboard({ user, onLogout }) {
                   >
                     Mutare fonduri
                   </button>
-                  <button
-                    className="action-button transfer-button"
-                    onClick={() => {
-                      setFromAccountId(acc.accountId);
-                      setShowTransferForm(true);
-                      setTransferType("user");
-                    }}
-                  >
-                    Transfer către alt utilizator
-                  </button>
+                  
+                  {/* Transfer către alt utilizator - doar pentru contul Personal */}
+                  {acc.accountType === "Personal" && (
+                    <button
+                      className="action-button transfer-button"
+                      onClick={() => {
+                        setFromAccountId(acc.accountId);
+                        setShowTransferForm(true);
+                        setTransferType("user");
+                      }}
+                    >
+                      Transfer către alt utilizator
+                    </button>
+                  )}
 
                   {acc.accountType !== "Cont Curent" && acc.accountType !== "Personal" && (
                     <button

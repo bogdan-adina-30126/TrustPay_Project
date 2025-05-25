@@ -118,7 +118,7 @@ function TransactionHistoryPage() {
           tranzacțiilor.
         </p>
         <button className="back-button" onClick={() => navigate("/")}>
-          ⬅ Înapoi la Dashboard
+          ⬅ Înapoi 
         </button>
       </div>
     );
@@ -138,7 +138,7 @@ function TransactionHistoryPage() {
         Sold curent: {formatNumber(account.balance)} {account.currency}
       </p>
       <button className="back-button" onClick={() => navigate("/")}>
-        ⬅ Înapoi la Dashboard
+        ⬅ Înapoi
       </button>
 
       {loading ? (

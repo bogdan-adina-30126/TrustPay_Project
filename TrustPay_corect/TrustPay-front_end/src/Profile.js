@@ -93,7 +93,7 @@ function Profile({ user }) {
 
           <div className="button-group-vertical">
             <button className="profile-button" onClick={() => navigate('/dashboard')}>
-              Înapoi la Dashboard
+              Înapoi 
             </button>
             <button className="profile-button" onClick={() => setIsEditing(true)}>
               Editare profil

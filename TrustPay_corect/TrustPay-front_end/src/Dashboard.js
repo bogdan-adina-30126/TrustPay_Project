@@ -68,9 +68,27 @@ function Dashboard({ user, onLogout }) {
       return;
     }
 
+    if (!toAccountId || toAccountId === "") {
+      setMessageType("error");
+      setMessage("Te rugăm să selectezi un cont destinație.");
+      return;
+    }
+
     if (fromAccountId === toAccountId) {
       setMessageType("error");
       setMessage("Nu poți transfera către același cont.");
+      return;
+    }
+
+    // Verificare fonduri insuficiente
+    const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
+    if (fromAccount && parsedAmount > fromAccount.balance) {
+      setMessageType("error");
+      setMessage("Fonduri insuficiente pentru această tranzacție.");
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
       return;
     }
 
@@ -126,9 +144,27 @@ function Dashboard({ user, onLogout }) {
       return;
     }
 
+    if (!toUserName || toUserName.trim() === "") {
+      setMessageType("error");
+      setMessage("Te rugăm să introduci numele utilizatorului destinație.");
+      return;
+    }
+
     if (fromUserName === toUserName) {
       setMessageType("error");
       setMessage("Nu poți transfera către același utilizator.");
+      return;
+    }
+
+    // Verificare fonduri insuficiente pentru transferul către alt utilizator
+    const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
+    if (fromAccount && parsedAmount > fromAccount.balance) {
+      setMessageType("error");
+      setMessage("Fonduri insuficiente pentru această tranzacție.");
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
       return;
     }
 
@@ -199,13 +235,14 @@ function Dashboard({ user, onLogout }) {
     setDeleteMessageType("");
   };
 
-  // Function to confirm account deletion
+  // Function to confirm account deletion - updated to allow deletion of accounts with 0 balance
   const confirmDeleteAccount = async () => {
     if (!accountToDelete) {
       console.error("No account selected for deletion");
       return;
     }
 
+    // Only check if balance is greater than 0 (allow deletion if balance is exactly 0)
     if (accountToDelete.balance > 0) {
       setDeleteMessageType("error");
       setDeleteMessage(
@@ -227,13 +264,12 @@ function Dashboard({ user, onLogout }) {
         setDeleteMessageType("success");
         setDeleteMessage("Contul a fost șters cu succes.");
         showConfirmationNotification("Contul a fost șters cu succes!");
-        fetchAccounts();
-
-        // Close the window after a short delay
-        setTimeout(() => {
-          setShowDeleteConfirm(false);
-          setAccountToDelete(null);
-        }, 2000);
+        
+        // Close the modal immediately and refresh accounts
+        setShowDeleteConfirm(false);
+        setAccountToDelete(null);
+        await fetchAccounts();
+        
       } else {
         const errorText = await response.text();
         setDeleteMessageType("error");
@@ -311,7 +347,7 @@ function Dashboard({ user, onLogout }) {
                     Transfer către alt utilizator
                   </button>
 
-                  {acc.accountType !== "Cont Curent" && (
+                  {acc.accountType !== "Cont Curent" && acc.accountType !== "Personal" && (
                     <button
                       className="action-button delete-button delete-button-red"
                       onClick={() => handleDeleteAccount(acc)}
@@ -373,7 +409,7 @@ function Dashboard({ user, onLogout }) {
                   value={toAccountId}
                   onChange={(e) => setToAccountId(e.target.value)}
                 >
-                  <option value="">Selectează contul destinație</option>
+                  <option value="" disabled>Selectează contul destinație</option>
                   {accounts
                     .filter((acc) => acc.accountId !== fromAccountId)
                     .map((acc) => (

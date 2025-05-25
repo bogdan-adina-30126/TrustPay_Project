@@ -1,37 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\",
+  "WorkspaceRootPath": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\transactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\controllers\\transactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\controllers\\transactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\users\\andrada\\documents\\semestru 2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\dto\\transferrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|c:\\an3_sem2\\proiect repository2\\trustpay_project\\trustpay_corect\\trustpay\\dto\\transferrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4342B3B9-C93D-4A36-B75B-8CF3FF71C7E5}|TrustPay\\TrustPay.csproj|solutionrelative:trustpay\\dto\\transferrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -48,50 +48,47 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "UserUpdateDto.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\UserUpdateDto.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\UserUpdateDto.cs",
               "RelativeDocumentMoniker": "TrustPay\\DTO\\UserUpdateDto.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\UserUpdateDto.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\UserUpdateDto.cs",
               "RelativeToolTip": "TrustPay\\DTO\\UserUpdateDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:42:10.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T15:42:10.153Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Account.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\Account.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\Account.cs",
               "RelativeDocumentMoniker": "TrustPay\\Models\\Account.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\Account.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\Account.cs",
               "RelativeToolTip": "TrustPay\\Models\\Account.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAwwAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:07:31.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T15:07:31.61Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\User.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\User.cs",
               "RelativeDocumentMoniker": "TrustPay\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\User.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Models\\User.cs",
               "RelativeToolTip": "TrustPay\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T14:37:39.759Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T14:37:39.759Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\UsersController.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "TrustPay\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\UsersController.cs",
               "RelativeToolTip": "TrustPay\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAowCgAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-03T19:40:37.166Z",
               "EditorCaption": ""
@@ -100,22 +97,21 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "TransactionsController.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\TransactionsController.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\TransactionsController.cs",
               "RelativeDocumentMoniker": "TrustPay\\Controllers\\TransactionsController.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\TransactionsController.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\TransactionsController.cs",
               "RelativeToolTip": "TrustPay\\Controllers\\TransactionsController.cs",
               "ViewState": "AgIAAMUAAAAAAAAAAAAUwNUAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T19:40:12.497Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-03T19:40:12.497Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "TransferRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\TransferRequest.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\TransferRequest.cs",
               "RelativeDocumentMoniker": "TrustPay\\DTO\\TransferRequest.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\TransferRequest.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\DTO\\TransferRequest.cs",
               "RelativeToolTip": "TrustPay\\DTO\\TransferRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -125,22 +121,21 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "AccountsController.cs",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
               "RelativeDocumentMoniker": "TrustPay\\Controllers\\AccountsController.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
               "RelativeToolTip": "TrustPay\\Controllers\\AccountsController.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAcwGMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T19:40:00.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-03T19:40:00.158Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\appsettings.json",
+              "DocumentMoniker": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\appsettings.json",
               "RelativeDocumentMoniker": "TrustPay\\appsettings.json",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\appsettings.json",
+              "ToolTip": "C:\\AN3_SEM2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\appsettings.json",
               "RelativeToolTip": "TrustPay\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAB9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",

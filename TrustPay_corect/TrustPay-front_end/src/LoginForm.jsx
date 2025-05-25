@@ -10,12 +10,12 @@ async function loginUser(userName, email, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userName, email, password }),
     });
-    
+        
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(errorText);
     }
-    
+        
     const data = await response.json();
     return data;
   } catch (err) {
@@ -29,13 +29,13 @@ function LoginForm({ onLogin }) {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
-  
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!userName || !email || !password) {
-    setMessage("Toate câmpurile sunt obligatorii.");
-    return;
-  }
+      setMessage("Toate câmpurile sunt obligatorii.");
+      return;
+    }
     try {
       const data = await loginUser(userName, email, password);
       if (data.message === "Autentificare") {
@@ -49,32 +49,42 @@ function LoginForm({ onLogin }) {
       setMessage("Autentificarea a eșuat. Vă rugăm să verificați datele de conectare.");
     }
   };
-  
+
+  // Handler pentru tasta Enter pe orice input
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  };
+    
   return (
     <div className="login-container">
       <div className="login-white-box">
         <div className="logo-container">
           <img src={logo} alt="TrustPay Logo" className="login-logo" />
         </div>
-        <h2>Enter your account</h2>
+        <h2>Intră în cont:</h2>
         <form onSubmit={handleSubmit} className="login-form">
           <input
             type="text"
             placeholder="Username"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <button type="submit">Autentificare</button>
         </form>

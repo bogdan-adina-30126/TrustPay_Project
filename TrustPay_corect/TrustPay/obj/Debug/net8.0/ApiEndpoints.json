@@ -407,21 +407,11 @@
     "Parameters": [
       {
         "Name": "loginData",
-        "Type": "TrustPay.Models.User",
+        "Type": "TrustPay.DTO.LoginDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "TrustPay.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "TrustPay.Controllers.UsersController",
@@ -454,26 +444,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TrustPay.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[TrustPay.WeatherForecast, TrustPay, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

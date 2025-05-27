@@ -136,82 +136,87 @@ function Dashboard({ user, onLogout }) {
     }, 5000);
   };
 
-  const transferBetweenUsers = async () => {
-    const parsedAmount = parseFloat(amount);
-    if (!parsedAmount || parsedAmount <= 0) {
-      setMessageType("error");
-      setMessage("Suma introdusă nu este validă.");
-      return;
-    }
+ const transferBetweenUsers = async () => {
+  const parsedAmount = parseFloat(amount);
 
-    if (!toUserName || toUserName.trim() === "") {
-      setMessageType("error");
-      setMessage("Te rugăm să introduci numele utilizatorului destinație.");
-      return;
-    }
+  // ✅ Verificare sumă validă
+  if (!parsedAmount || parsedAmount <= 0) {
+    setMessageType("error");
+    setMessage("Suma introdusă nu este validă.");
+    return;
+  }
 
-    if (fromUserName === toUserName) {
-      setMessageType("error");
-      setMessage("Nu poți transfera către același utilizator.");
-      return;
-    }
+  // ✅ Verificare maxim 2 zecimale
+  if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
+    setMessageType("error");
+    setMessage("Suma trebuie să aibă maximum 2 zecimale.");
+    return;
+  }
 
-    // Verificare fonduri insuficiente pentru transferul către alt utilizator
-    const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
-    if (fromAccount && parsedAmount > fromAccount.balance) {
-      setMessageType("error");
-      setMessage("Fonduri insuficiente pentru această tranzacție.");
-      setTimeout(() => {
-        setMessage("");
-        setMessageType("");
-      }, 5000);
-      return;
-    }
+  if (!toUserName || toUserName.trim() === "") {
+    setMessageType("error");
+    setMessage("Te rugăm să introduci numele utilizatorului destinație.");
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Transactions/transfer-between-users",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            FromUserName: fromUserName,
-            ToUserName: toUserName,
-            Amount: parsedAmount,
-            Currency: currency,
-            TransactionType: "Transfer",
-          }),
-        }
-      );
+  if (fromUserName === toUserName) {
+    setMessageType("error");
+    setMessage("Nu poți transfera către același utilizator.");
+    return;
+  }
 
-      if (response.ok) {
-        setMessageType("success");
-        setMessage("Transfer realizat cu succes!");
-        showConfirmationNotification(
-          "Transfer către utilizator realizat cu succes!"
-        );
-        await fetchAccounts();
-        setShowTransferForm(false);
-        setAmount("");
-        setCurrency("RON");
-        setToUserName("");
-      } else {
-        const errorData = await response.json();
-        setMessageType("error");
-        setMessage(
-          "Eroare la transfer: " + (errorData.message || "necunoscută")
-        );
-      }
-    } catch (error) {
-      setMessageType("error");
-      setMessage("Eroare: " + error.message);
-    }
-
+  // Verificare fonduri insuficiente
+  const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
+  if (fromAccount && parsedAmount > fromAccount.balance) {
+    setMessageType("error");
+    setMessage("Fonduri insuficiente pentru această tranzacție.");
     setTimeout(() => {
       setMessage("");
       setMessageType("");
     }, 5000);
-  };
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://localhost:7157/api/Transactions/transfer-between-users",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          FromUserName: fromUserName,
+          ToUserName: toUserName,
+          Amount: parsedAmount,
+          Currency: currency,
+          TransactionType: "Transfer",
+        }),
+      }
+    );
+
+    if (response.ok) {
+      setMessageType("success");
+      setMessage("Transfer realizat cu succes!");
+      showConfirmationNotification("Transfer către utilizator realizat cu succes!");
+      await fetchAccounts();
+      setShowTransferForm(false);
+      setAmount("");
+      setCurrency("RON");
+      setToUserName("");
+    } else {
+      const errorData = await response.json();
+      setMessageType("error");
+      setMessage("Eroare la transfer: " + (errorData.message || "necunoscută"));
+    }
+  } catch (error) {
+    setMessageType("error");
+    setMessage("Eroare: " + error.message);
+  }
+
+  setTimeout(() => {
+    setMessage("");
+    setMessageType("");
+  }, 5000);
+};
 
   // Updated formatNumber function for Dashboard.js
   const formatNumber = (number) => {

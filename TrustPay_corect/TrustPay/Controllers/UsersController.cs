@@ -23,7 +23,7 @@ namespace TrustPay.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login([FromBody] User loginData)
+        public async Task<ActionResult> Login([FromBody] LoginDto loginData)
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.UserName == loginData.UserName && u.Password == loginData.Password);
@@ -41,11 +41,12 @@ namespace TrustPay.Controllers
                 Message = "Autentificare"
             });
         }
+
         [HttpGet("user/{userId}/accounts")]
         public async Task<IActionResult> GetUserAccounts(int userId)
         {
             var accounts = await _context.Accounts
-                .Where(a => a.UserId == userId)
+                .Where(a => a.UserId == userId && a.IsActive) // <-- adaugă această condiție
                 .ToListAsync();
 
             return Ok(accounts);
@@ -60,7 +61,7 @@ namespace TrustPay.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -86,6 +87,8 @@ namespace TrustPay.Controllers
 
             existingUser.UserName = updatedUser.UserName;
             existingUser.Email = updatedUser.Email;
+            existingUser.Adresa = updatedUser.Adresa;
+            existingUser.Telefon = updatedUser.Telefon;
 
             try
             {
@@ -158,6 +161,11 @@ namespace TrustPay.Controllers
             {
                 userId = user.UserId,
                 userName = user.UserName,
+                email = user.Email,
+                telefon = user.Telefon,
+                adresa = user.Adresa,
+                cnp = user.CNP,
+                iban = user.IBAN,
                 accountId = personalAccount.AccountId,
                 accountType = personalAccount.AccountType,
                 currency = personalAccount.Currency

@@ -21,6 +21,7 @@ namespace TrustPay.Models
         public virtual ICollection<Transaction> TransactionToAccounts { get; set; } = new List<Transaction>();
 
         public virtual User? User { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
 }

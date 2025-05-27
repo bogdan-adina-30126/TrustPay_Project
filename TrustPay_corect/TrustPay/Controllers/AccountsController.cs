@@ -33,7 +33,7 @@ namespace TrustPay.Controllers
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<Account>>> GetUserAccounts(int userId)
         {
-            var accounts = await _context.Accounts.Where(a => a.UserId == userId).ToListAsync();
+            var accounts = await _context.Accounts.Where(a => a.UserId == userId && a.IsActive).ToListAsync();
 
             if (accounts == null || !accounts.Any())
             {
@@ -47,7 +47,7 @@ namespace TrustPay.Controllers
         public async Task<ActionResult<IEnumerable<Account>>> GetAccountsByUser(int userId)
         {
             var accounts = await _context.Accounts
-                .Where(a => a.UserId == userId)
+               .Where(a => a.UserId == userId && a.IsActive)
                 .ToListAsync();
 
             if (!accounts.Any())
@@ -93,7 +93,7 @@ namespace TrustPay.Controllers
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            account.IsActive = false; // dezactivăm contul
             await _context.SaveChangesAsync();
 
             return NoContent();

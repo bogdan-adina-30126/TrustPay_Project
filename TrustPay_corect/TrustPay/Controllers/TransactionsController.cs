@@ -187,8 +187,8 @@ namespace TrustPay.Controllers
                 .Select(t => new
                 {
                     Message = t.FromAccountId == accountId
-                        ? $"🡒 Către contul {t.ToAccount.User.UserName} — {t.Amount} {t.Currency} ({t.TransactionDate.ToString("dd.MM.yyyy, HH:mm")})"
-                        : $"🡐 De la contul {t.FromAccount.User.UserName} — {t.Amount} {t.Currency} ({t.TransactionDate.ToString("dd.MM.yyyy, HH:mm")})"
+                       ? $"🡒 Către contul {t.ToAccount.User.UserName} ({t.ToAccount.AccountType}) din {t.FromAccount.AccountType} — {t.Amount:F2} {t.Currency} ({t.TransactionDate:dd.MM.yyyy, HH:mm})"
+                       : $"🡐 De la contul {t.FromAccount.User.UserName} ({t.FromAccount.AccountType}) în {t.ToAccount.AccountType} — {t.Amount:F2} {t.Currency} ({t.TransactionDate:dd.MM.yyyy, HH:mm})"
                 })
                 .ToListAsync();
 
@@ -239,6 +239,10 @@ namespace TrustPay.Controllers
                 return BadRequest(new { message = "Fonduri insuficiente." });
             }
 
+            if (decimal.Round(transferRequest.Amount, 2) != transferRequest.Amount)
+            {
+                return BadRequest(new { message = "Suma trebuie să aibă maximum 2 zecimale." });
+            }
             // Realizăm transferul (scădem suma din contul sursă și o adăugăm în contul destinație)
             fromAccount.Balance -= transferRequest.Amount;
             toAccount.Balance += transferRequest.Amount;

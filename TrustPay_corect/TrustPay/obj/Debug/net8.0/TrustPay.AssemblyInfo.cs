@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrustPay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5e58c343c80945c070e86e2f348e2c97469e322")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca651f7876e350512f238cfb542900d7afcde75e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrustPay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrustPay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

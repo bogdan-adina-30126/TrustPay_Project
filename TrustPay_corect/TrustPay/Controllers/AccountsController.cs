@@ -61,26 +61,64 @@ namespace TrustPay.Controllers
         [HttpPost]
         public async Task<ActionResult<Account>> PostAccount([FromBody] Account account)
         {
-            // Verificăm dacă utilizatorul există
             if (account.UserId == null)
             {
-                return BadRequest("UserId este obligatoriu.");
+                return BadRequest(new { message = "UserId este obligatoriu." });
             }
 
             var user = await _context.Users.FindAsync(account.UserId);
             if (user == null)
             {
-                return NotFound("Utilizatorul nu a fost găsit.");
+                return NotFound(new { message = "Utilizatorul nu a fost găsit." });
             }
 
-            // Setăm câmpurile suplimentare (dacă nu sunt deja setate)
-            account.CreatedAt = DateTime.UtcNow;
+            // Verifică dacă utilizatorul are deja 3 conturi active
+            var existingAccounts = await _context.Accounts
+                .Where(a => a.UserId == account.UserId && a.IsActive)
+                .ToListAsync();
 
-            // Adăugăm contul în baza de date
-            _context.Accounts.Add(account);
-            await _context.SaveChangesAsync();
+            if (existingAccounts.Count >= 3)
+            {
+                return BadRequest(new { message = "Ai deja numărul maxim de conturi permis (3 conturi)." });
+            }
 
-            return CreatedAtAction("GetAccount", new { id = account.AccountId }, account);
+            // Verifică dacă utilizatorul are deja un cont de același tip
+            bool hasDuplicateType = existingAccounts.Any(a => a.AccountType == account.AccountType);
+            if (hasDuplicateType)
+            {
+                return BadRequest(new { message = $"Ai deja un cont de tip {account.AccountType}. Nu poți crea conturi duplicate." });
+            }
+
+            // Validări suplimentare pentru tipurile de cont
+            var validAccountTypes = new[] { "Personal", "Cont Curent", "Economii", "Investitii" };
+            if (!validAccountTypes.Contains(account.AccountType))
+            {
+                return BadRequest(new { message = "Tipul de cont nu este valid." });
+            }
+
+            // Verifică dacă utilizatorul încearcă să creeze conturi ce ar trebui să existe deja implicit
+            if (account.AccountType == "Personal" || account.AccountType == "Cont Curent")
+            {
+                return BadRequest(new { message = $"Contul {account.AccountType} ar trebui să existe deja în sistemul tău." });
+            }
+
+            try
+            {
+                // Setări implicite
+                account.CreatedAt = DateTime.UtcNow;
+                account.IsActive = true;
+                account.Balance = 0; // Asigurăm că balanța inițială este 0
+                account.Currency = "RON"; // Asigurăm că moneda este RON
+
+                _context.Accounts.Add(account);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetAccount", new { id = account.AccountId }, account);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Eroare la salvarea contului în baza de date: " + ex.Message });
+            }
         }
 
         // DELETE: api/Accounts/5

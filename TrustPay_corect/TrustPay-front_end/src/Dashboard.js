@@ -26,6 +26,11 @@ function Dashboard({ user, onLogout }) {
   const [accountToDelete, setAccountToDelete] = useState(null);
   const [deleteMessage, setDeleteMessage] = useState("");
   const [deleteMessageType, setDeleteMessageType] = useState("");
+  // Add state for create account modal
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
+  const [selectedAccountType, setSelectedAccountType] = useState("");
+  const [createAccountMessage, setCreateAccountMessage] = useState("");
+  const [createAccountMessageType, setCreateAccountMessageType] = useState("");
 
   const navigate = useNavigate();
 
@@ -102,7 +107,7 @@ function Dashboard({ user, onLogout }) {
             fromAccountId,
             toAccountId,
             amount: parsedAmount,
-            currency: transferCurrency,
+            currency: "RON", // Fixed to RON
             transactionType: "Transfer",
             fromUserName,
             toUserName,
@@ -187,7 +192,7 @@ function Dashboard({ user, onLogout }) {
           FromUserName: fromUserName,
           ToUserName: toUserName,
           Amount: parsedAmount,
-          Currency: currency,
+          Currency: "RON", // Fixed to RON
           TransactionType: "Transfer",
         }),
       }
@@ -217,6 +222,83 @@ function Dashboard({ user, onLogout }) {
     setMessageType("");
   }, 5000);
 };
+const createAccount = async () => {
+  if (!selectedAccountType) {
+    setCreateAccountMessageType("error");
+    setCreateAccountMessage("Te rugăm să selectezi tipul de cont.");
+    return;
+  }
+
+  try {
+    const response = await fetch("https://localhost:7157/api/Accounts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: user.userId,
+        accountType: selectedAccountType,
+        balance: 0,
+        currency: "RON",
+      }),
+    });
+
+    if (response.ok) {
+      const newAccount = await response.json();
+      setCreateAccountMessageType("success");
+      setCreateAccountMessage(`Contul ${selectedAccountType} a fost creat cu succes!`);
+      showConfirmationNotification(`Contul ${selectedAccountType} a fost creat cu succes!`);
+
+      // Reîmprospătăm conturile imediat
+      await fetchAccounts();
+      
+      // Setăm tab-ul activ pe noul cont creat
+      setCurrentTab(selectedAccountType);
+
+      // Închidem modalul după un delay scurt pentru a vedea mesajul de succes
+      setTimeout(() => {
+        setShowCreateAccountModal(false);
+        setSelectedAccountType("");
+        setCreateAccountMessage("");
+        setCreateAccountMessageType("");
+      }, 1500);
+
+    } else {
+      // Tratăm erorile de la backend
+      let errorMessage = "Eroare necunoscută";
+      
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorData.title || errorData;
+      } catch {
+        // Dacă răspunsul nu este JSON, citim ca text
+        try {
+          const errorText = await response.text();
+          errorMessage = errorText || `Eroare HTTP ${response.status}`;
+        } catch {
+          errorMessage = `Eroare HTTP ${response.status}`;
+        }
+      }
+
+      setCreateAccountMessageType("error");
+      setCreateAccountMessage(errorMessage);
+      
+      // Păstrăm mesajul de eroare mai mult timp pentru a fi citit
+      setTimeout(() => {
+        setCreateAccountMessage("");
+        setCreateAccountMessageType("");
+      }, 6000);
+    }
+  } catch (error) {
+    setCreateAccountMessageType("error");
+    setCreateAccountMessage("Eroare de conectare: " + error.message);
+    
+    setTimeout(() => {
+      setCreateAccountMessage("");
+      setCreateAccountMessageType("");
+    }, 6000);
+  }
+};
+
+
 
   // Updated formatNumber function for Dashboard.js
   const formatNumber = (number) => {
@@ -302,19 +384,31 @@ function Dashboard({ user, onLogout }) {
         </div>
       </header>
 
-      <div className="chrome-tabs-container">
-        {accountTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => setCurrentTab(type)}
-            className={`chrome-tab ${
-              currentTab === type ? "chrome-tab-active" : ""
-            }`}
-          >
-            {type}
-          </button>
-        ))}
-      </div>
+  {/* Elimină complet create-account-section */}
+
+<div className="chrome-tabs-container">
+  <div className="chrome-tabs-left">
+    {accountTypes.map((type) => (
+      <button
+        key={type}
+        onClick={() => setCurrentTab(type)}
+        className={`chrome-tab ${
+          currentTab === type ? "chrome-tab-active" : ""
+        }`}
+      >
+        {type}
+      </button>
+    ))}
+  </div>
+  
+  {/* Butonul Creează cont în dreapta */}
+  <button 
+    className="create-account-button"
+    onClick={() => setShowCreateAccountModal(true)}
+  >
+    Creează cont
+  </button>
+</div>
 
       <div className="tab-content">
         {accounts
@@ -384,6 +478,59 @@ function Dashboard({ user, onLogout }) {
           ))}
       </div>
 
+      {/* Create Account Modal */}
+      {showCreateAccountModal && (
+        <div className="create-account-modal">
+          <h3 className="create-account-modal-title">Creează cont nou</h3>
+<button
+  className={`account-type-option ${selectedAccountType === "Investitii" ? "selected" : ""}`}
+  onClick={() => setSelectedAccountType("Investitii")}
+>
+  <div className="account-type-text">
+    <strong>Investiții</strong>
+    <p>Pentru investiții și tranzacții pe termen lung</p>
+  </div>
+</button>
+
+<button
+  className={`account-type-option ${selectedAccountType === "Economii" ? "selected" : ""}`}
+  onClick={() => setSelectedAccountType("Economii")}
+>
+  <div className="account-type-text">
+    <strong>Economii</strong>
+    <p>Pentru economisirea banilor și obiective financiare</p>
+  </div>
+</button>
+
+          {createAccountMessage && (
+            <div className={`message-box ${createAccountMessageType}-message`}>
+              {createAccountMessage}
+            </div>
+          )}
+
+          <div className="modal-actions">
+            <button
+              className="cancel-button"
+              onClick={() => {
+                setShowCreateAccountModal(false);
+                setSelectedAccountType("");
+                setCreateAccountMessage("");
+                setCreateAccountMessageType("");
+              }}
+            >
+              Anulează
+            </button>
+            <button
+              className="submit-button"
+              onClick={createAccount}
+              disabled={!selectedAccountType}
+            >
+              Creează cont
+            </button>
+          </div>
+        </div>
+      )}
+
       {showTransferForm && (
         <div className="transfer-modal">
           <h3 className="transfer-modal-title">
@@ -443,15 +590,12 @@ function Dashboard({ user, onLogout }) {
 
               <div className="form-group">
                 <label className="form-label">Monedă:</label>
-                <select
+                <input
+                  type="text"
                   className="form-control"
-                  value={transferCurrency}
-                  onChange={(e) => setTransferCurrency(e.target.value)}
-                >
-                  <option value="RON">RON</option>
-                  <option value="EUR">EUR</option>
-                  <option value="USD">USD</option>
-                </select>
+                  value="RON"
+                  readOnly
+                />
               </div>
 
               <div className="modal-actions">
@@ -503,15 +647,12 @@ function Dashboard({ user, onLogout }) {
 
               <div className="form-group">
                 <label className="form-label">Monedă:</label>
-                <select
+                <input
+                  type="text"
                   className="form-control"
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                >
-                  <option value="RON">RON</option>
-                  <option value="EUR">EUR</option>
-                  <option value="USD">USD</option>
-                </select>
+                  value="RON"
+                  readOnly
+                />
               </div>
 
               <div className="modal-actions">

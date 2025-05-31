@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import logo from './logo1.png';
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
+import Profile from './Profile'; // Asigură-te că Profile este corect importat și utilizat dacă este cazul
 
 function Dashboard({ user, onLogout }) {
   const [accounts, setAccounts] = useState([]);
@@ -21,12 +21,10 @@ function Dashboard({ user, onLogout }) {
   const [fromUserName] = useState(user.userName);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
-  // Add state for the delete confirmation modal
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [accountToDelete, setAccountToDelete] = useState(null);
   const [deleteMessage, setDeleteMessage] = useState("");
   const [deleteMessageType, setDeleteMessageType] = useState("");
-  // Add state for create account modal
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [selectedAccountType, setSelectedAccountType] = useState("");
   const [createAccountMessage, setCreateAccountMessage] = useState("");
@@ -46,17 +44,37 @@ function Dashboard({ user, onLogout }) {
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
         setAccounts(data);
-        setCurrentTab(data[0].accountType);
+        // Set current tab to the first account's type if no tab is currently selected
+        if (currentTab === null) {
+          setCurrentTab(data[0].accountType);
+        } else {
+            // If the current tab (selectedAccountType after creation) is no longer valid,
+            // or if the account was deleted, switch to the first available account.
+            // This ensures a valid tab is always selected.
+            const currentTabExists = data.some(acc => acc.accountType === currentTab);
+            if (!currentTabExists && data.length > 0) {
+                setCurrentTab(data[0].accountType);
+            } else if (data.length === 0) {
+                setCurrentTab(null); // No accounts left
+            }
+        }
       } else {
         setAccounts([]);
+        setCurrentTab(null); // No accounts, no active tab
       }
     } catch (error) {
       console.error("Error fetching accounts:", error);
+      // Handle cases where user has no accounts (e.g., first login, or all deleted)
+      setAccounts([]);
+      setCurrentTab(null);
     }
   };
 
+  // Re-fetch accounts when user.userId changes
   useEffect(() => {
-    fetchAccounts();
+    if (user && user.userId) {
+        fetchAccounts();
+    }
   }, [user.userId]);
 
   const showConfirmationNotification = (message) => {
@@ -85,7 +103,6 @@ function Dashboard({ user, onLogout }) {
       return;
     }
 
-    // Verificare fonduri insuficiente
     const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
     if (fromAccount && parsedAmount > fromAccount.balance) {
       setMessageType("error");
@@ -107,7 +124,7 @@ function Dashboard({ user, onLogout }) {
             fromAccountId,
             toAccountId,
             amount: parsedAmount,
-            currency: "RON", // Fixed to RON
+            currency: "RON",
             transactionType: "Transfer",
             fromUserName,
             toUserName,
@@ -119,10 +136,11 @@ function Dashboard({ user, onLogout }) {
         setMessageType("success");
         setMessage("Transfer realizat cu succes!");
         showConfirmationNotification("Transfer realizat cu succes!");
-        await fetchAccounts();
+        await fetchAccounts(); // Reîmprospătează conturile
         setShowTransferForm(false);
         setTransferAmount("");
         setTransferCurrency("RON");
+        setToAccountId(""); // Reset toAccountId
       } else {
         const errorData = await response.json();
         setMessageType("error");
@@ -141,199 +159,207 @@ function Dashboard({ user, onLogout }) {
     }, 5000);
   };
 
- const transferBetweenUsers = async () => {
-  const parsedAmount = parseFloat(amount);
+  const transferBetweenUsers = async () => {
+    const parsedAmount = parseFloat(amount);
 
-  // ✅ Verificare sumă validă
-  if (!parsedAmount || parsedAmount <= 0) {
-    setMessageType("error");
-    setMessage("Suma introdusă nu este validă.");
-    return;
-  }
+    if (!parsedAmount || parsedAmount <= 0) {
+      setMessageType("error");
+      setMessage("Suma introdusă nu este validă.");
+      return;
+    }
 
-  // ✅ Verificare maxim 2 zecimale
-  if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
-    setMessageType("error");
-    setMessage("Suma trebuie să aibă maximum 2 zecimale.");
-    return;
-  }
+    if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
+      setMessageType("error");
+      setMessage("Suma trebuie să aibă maximum 2 zecimale.");
+      return;
+    }
 
-  if (!toUserName || toUserName.trim() === "") {
-    setMessageType("error");
-    setMessage("Te rugăm să introduci numele utilizatorului destinație.");
-    return;
-  }
+    if (!toUserName || toUserName.trim() === "") {
+      setMessageType("error");
+      setMessage("Te rugăm să introduci numele utilizatorului destinație.");
+      return;
+    }
 
-  if (fromUserName === toUserName) {
-    setMessageType("error");
-    setMessage("Nu poți transfera către același utilizator.");
-    return;
-  }
+    if (fromUserName === toUserName) {
+      setMessageType("error");
+      setMessage("Nu poți transfera către același utilizator.");
+      return;
+    }
 
-  // Verificare fonduri insuficiente
-  const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
-  if (fromAccount && parsedAmount > fromAccount.balance) {
-    setMessageType("error");
-    setMessage("Fonduri insuficiente pentru această tranzacție.");
+    const fromAccount = accounts.find(acc => acc.accountId === fromAccountId);
+    if (fromAccount && parsedAmount > fromAccount.balance) {
+      setMessageType("error");
+      setMessage("Fonduri insuficiente pentru această tranzacție.");
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Transactions/transfer-between-users",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            FromUserName: fromUserName,
+            ToUserName: toUserName,
+            Amount: parsedAmount,
+            Currency: "RON",
+            TransactionType: "Transfer",
+          }),
+        }
+      );
+
+      if (response.ok) {
+        setMessageType("success");
+        setMessage("Transfer realizat cu succes!");
+        showConfirmationNotification("Transfer către utilizator realizat cu succes!");
+        await fetchAccounts(); // Reîmprospătează conturile
+        setShowTransferForm(false);
+        setAmount("");
+        setCurrency("RON");
+        setToUserName("");
+      } else {
+        const errorData = await response.json();
+        setMessageType("error");
+        setMessage("Eroare la transfer: " + (errorData.message || "necunoscută"));
+      }
+    } catch (error) {
+      setMessageType("error");
+      setMessage("Eroare: " + error.message);
+    }
+
     setTimeout(() => {
       setMessage("");
       setMessageType("");
     }, 5000);
-    return;
-  }
+  };
 
-  try {
-    const response = await fetch(
-      "https://localhost:7157/api/Transactions/transfer-between-users",
-      {
+  // Functia de creare a contului - actualizată
+  const createAccount = async () => {
+    if (!selectedAccountType) {
+      setCreateAccountMessageType("error");
+      setCreateAccountMessage("Te rugăm să selectezi tipul de cont.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://localhost:7157/api/Accounts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          FromUserName: fromUserName,
-          ToUserName: toUserName,
-          Amount: parsedAmount,
-          Currency: "RON", // Fixed to RON
-          TransactionType: "Transfer",
+          userId: user.userId,
+          accountType: selectedAccountType,
+          balance: 0,
+          currency: "RON",
         }),
-      }
-    );
+      });
 
-    if (response.ok) {
-      setMessageType("success");
-      setMessage("Transfer realizat cu succes!");
-      showConfirmationNotification("Transfer către utilizator realizat cu succes!");
-      await fetchAccounts();
-      setShowTransferForm(false);
-      setAmount("");
-      setCurrency("RON");
-      setToUserName("");
-    } else {
-      const errorData = await response.json();
-      setMessageType("error");
-      setMessage("Eroare la transfer: " + (errorData.message || "necunoscută"));
-    }
-  } catch (error) {
-    setMessageType("error");
-    setMessage("Eroare: " + error.message);
-  }
+      if (response.ok) {
+        const newAccount = await response.json();
+        setCreateAccountMessageType("success");
+        setCreateAccountMessage(`Contul ${selectedAccountType} a fost creat cu succes!`);
+        showConfirmationNotification(`Contul ${selectedAccountType} a fost creat cu succes!`);
 
-  setTimeout(() => {
-    setMessage("");
-    setMessageType("");
-  }, 5000);
-};
-const createAccount = async () => {
-  if (!selectedAccountType) {
-    setCreateAccountMessageType("error");
-    setCreateAccountMessage("Te rugăm să selectezi tipul de cont.");
-    return;
-  }
+        await fetchAccounts(); // Reîmprospătăm conturile imediat
 
-  try {
-    const response = await fetch("https://localhost:7157/api/Accounts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: user.userId,
-        accountType: selectedAccountType,
-        balance: 0,
-        currency: "RON",
-      }),
-    });
+        // Setăm tab-ul activ pe noul cont creat
+        setCurrentTab(selectedAccountType);
 
-    if (response.ok) {
-      const newAccount = await response.json();
-      setCreateAccountMessageType("success");
-      setCreateAccountMessage(`Contul ${selectedAccountType} a fost creat cu succes!`);
-      showConfirmationNotification(`Contul ${selectedAccountType} a fost creat cu succes!`);
+        // Închidem modalul după un delay scurt pentru a vedea mesajul de succes
+        setTimeout(() => {
+          setShowCreateAccountModal(false);
+          setSelectedAccountType("");
+          setCreateAccountMessage("");
+          setCreateAccountMessageType("");
+        }, 1500);
 
-      // Reîmprospătăm conturile imediat
-      await fetchAccounts();
-      
-      // Setăm tab-ul activ pe noul cont creat
-      setCurrentTab(selectedAccountType);
+      } else {
+        let errorMessage = "Eroare necunoscută";
 
-      // Închidem modalul după un delay scurt pentru a vedea mesajul de succes
-      setTimeout(() => {
-        setShowCreateAccountModal(false);
-        setSelectedAccountType("");
-        setCreateAccountMessage("");
-        setCreateAccountMessageType("");
-      }, 1500);
-
-    } else {
-      // Tratăm erorile de la backend
-      let errorMessage = "Eroare necunoscută";
-      
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.message || errorData.title || errorData;
-      } catch {
-        // Dacă răspunsul nu este JSON, citim ca text
         try {
-          const errorText = await response.text();
-          errorMessage = errorText || `Eroare HTTP ${response.status}`;
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorData.title || JSON.stringify(errorData); // Am adăugat JSON.stringify pentru obiecte
         } catch {
-          errorMessage = `Eroare HTTP ${response.status}`;
+          try {
+            const errorText = await response.text();
+            errorMessage = errorText || `Eroare HTTP ${response.status}`;
+          } catch {
+            errorMessage = `Eroare HTTP ${response.status}`;
+          }
         }
-      }
 
+        setCreateAccountMessageType("error");
+        setCreateAccountMessage(errorMessage);
+
+        setTimeout(() => {
+          setCreateAccountMessage("");
+          setCreateAccountMessageType("");
+        }, 6000);
+      }
+    } catch (error) {
       setCreateAccountMessageType("error");
-      setCreateAccountMessage(errorMessage);
-      
-      // Păstrăm mesajul de eroare mai mult timp pentru a fi citit
+      setCreateAccountMessage("Eroare de conectare: " + error.message);
+
       setTimeout(() => {
         setCreateAccountMessage("");
         setCreateAccountMessageType("");
       }, 6000);
     }
-  } catch (error) {
-    setCreateAccountMessageType("error");
-    setCreateAccountMessage("Eroare de conectare: " + error.message);
-    
-    setTimeout(() => {
-      setCreateAccountMessage("");
-      setCreateAccountMessageType("");
-    }, 6000);
-  }
-};
+  };
 
 
-
-  // Updated formatNumber function for Dashboard.js
   const formatNumber = (number) => {
-    // Handle undefined, null, or non-numeric values
     if (number === undefined || number === null || isNaN(number)) {
       return "0";
     }
-
-    // Convert to number if it's a string
     const num = typeof number === "string" ? parseFloat(number) : number;
-
-    // Check if it's an integer
     return Number.isInteger(num) ? num.toString() : num.toFixed(2);
   };
 
-  // Updated to use the custom confirmation dialog
   const handleDeleteAccount = (account) => {
+    // Adaugă verificarea pentru tipurile de cont care nu pot fi șterse
+    if (account.accountType === "Personal" || account.accountType === "Cont Curent") {
+        setDeleteMessageType("error");
+        setDeleteMessage(`Contul ${account.accountType} nu poate fi șters.`);
+        // Poți alege să nu deschizi deloc modalul de confirmare, sau să-l deschizi doar cu mesajul de eroare
+        // Pentru simplitate, îl deschidem cu mesajul de eroare și nu permitem confirmarea.
+        setAccountToDelete(null); // Nu setezi accountToDelete dacă nu se poate șterge
+        setShowDeleteConfirm(true);
+        setTimeout(() => {
+          setDeleteMessage("");
+          setDeleteMessageType("");
+          setShowDeleteConfirm(false);
+        }, 5000); // Mesajul dispare după 5 secunde
+        return;
+    }
+
     setAccountToDelete(account);
     setShowDeleteConfirm(true);
     setDeleteMessage("");
     setDeleteMessageType("");
   };
 
-  // Function to confirm account deletion - updated to allow deletion of accounts with 0 balance
   const confirmDeleteAccount = async () => {
     if (!accountToDelete) {
       console.error("No account selected for deletion");
       return;
     }
 
-    // Only check if balance is greater than 0 (allow deletion if balance is exactly 0)
+    // Verifică din nou dacă nu cumva contul este "Personal" sau "Cont Curent"
+    if (accountToDelete.accountType === "Personal" || accountToDelete.accountType === "Cont Curent") {
+      setDeleteMessageType("error");
+      setDeleteMessage(`Contul ${accountToDelete.accountType} nu poate fi șters.`);
+      return; // Nu continua cu ștergerea
+    }
+
     if (accountToDelete.balance > 0) {
       setDeleteMessageType("error");
       setDeleteMessage(
-        `Nu poți șterge acest cont deoarece are un sold de ${accountToDelete.balance} ${accountToDelete.currency}.\n` +
+        `Nu poți șterge acest cont deoarece are un sold de ${formatNumber(accountToDelete.balance)} ${accountToDelete.currency}.\n` +
           `Te rugăm să transferi banii în alt cont înainte de a șterge acest cont.`
       );
       return;
@@ -351,12 +377,11 @@ const createAccount = async () => {
         setDeleteMessageType("success");
         setDeleteMessage("Contul a fost șters cu succes.");
         showConfirmationNotification("Contul a fost șters cu succes!");
-        
-        // Close the modal immediately and refresh accounts
+
         setShowDeleteConfirm(false);
         setAccountToDelete(null);
-        await fetchAccounts();
-        
+        await fetchAccounts(); // Reîmprospătează conturile după ștergere
+
       } else {
         const errorText = await response.text();
         setDeleteMessageType("error");
@@ -367,6 +392,15 @@ const createAccount = async () => {
       setDeleteMessage("Eroare tehnică: " + error.message);
     }
   };
+
+  // Lista tipurilor de conturi pe care utilizatorul le poate adăuga manual
+  const creatableAccountTypes = [
+    { name: "Economii", description: "Pentru economisirea banilor și obiective financiare" },
+    { name: "Investitii", description: "Pentru investiții și tranzacții pe termen lung" },
+    { name: "Călătorii", description: "Pentru fondurile alocate călătoriilor" },
+    // Adaugă aici și alte tipuri de conturi pe care vrei să le permiti utilizatorului să le creeze
+    // ex: { name: "Mașină", description: "Pentru fondul de mașină" }
+  ];
 
   const accountTypes = [...new Set(accounts.map((acc) => acc.accountType))];
 
@@ -384,31 +418,31 @@ const createAccount = async () => {
         </div>
       </header>
 
-  {/* Elimină complet create-account-section */}
+      {/* Elimină complet create-account-section */}
 
-<div className="chrome-tabs-container">
-  <div className="chrome-tabs-left">
-    {accountTypes.map((type) => (
-      <button
-        key={type}
-        onClick={() => setCurrentTab(type)}
-        className={`chrome-tab ${
-          currentTab === type ? "chrome-tab-active" : ""
-        }`}
-      >
-        {type}
-      </button>
-    ))}
-  </div>
-  
-  {/* Butonul Creează cont în dreapta */}
-  <button 
-    className="create-account-button"
-    onClick={() => setShowCreateAccountModal(true)}
-  >
-    Creează cont
-  </button>
-</div>
+      <div className="chrome-tabs-container">
+        <div className="chrome-tabs-left">
+          {accountTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setCurrentTab(type)}
+              className={`chrome-tab ${
+                currentTab === type ? "chrome-tab-active" : ""
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
+        {/* Butonul Creează cont în dreapta */}
+        <button
+          className="create-account-button"
+          onClick={() => setShowCreateAccountModal(true)}
+        >
+          Creează cont
+        </button>
+      </div>
 
       <div className="tab-content">
         {accounts
@@ -435,7 +469,7 @@ const createAccount = async () => {
                   >
                     Mutare fonduri
                   </button>
-                  
+
                   {/* Transfer către alt utilizator - doar pentru contul Personal */}
                   {acc.accountType === "Personal" && (
                     <button
@@ -450,6 +484,7 @@ const createAccount = async () => {
                     </button>
                   )}
 
+                  {/* Butonul Șterge cont - NU este afișat pentru "Personal" sau "Cont Curent" */}
                   {acc.accountType !== "Cont Curent" && acc.accountType !== "Personal" && (
                     <button
                       className="action-button delete-button delete-button-red"
@@ -476,32 +511,42 @@ const createAccount = async () => {
               </div>
             </div>
           ))}
+
+          {/* Mesaj dacă nu există conturi pentru tab-ul selectat sau deloc */}
+          {accounts.length === 0 && currentTab === null && (
+            <div className="no-accounts-message">
+                Nu ai încă niciun cont. Apasă "Creează cont" pentru a adăuga unul!
+            </div>
+          )}
+          {accounts.length > 0 && currentTab !== null && !accounts.some(acc => acc.accountType === currentTab) && (
+            <div className="no-accounts-message">
+                Contul curent nu mai există. Te rugăm să selectezi un alt cont.
+            </div>
+          )}
       </div>
 
       {/* Create Account Modal */}
       {showCreateAccountModal && (
         <div className="create-account-modal">
           <h3 className="create-account-modal-title">Creează cont nou</h3>
-<button
-  className={`account-type-option ${selectedAccountType === "Investitii" ? "selected" : ""}`}
-  onClick={() => setSelectedAccountType("Investitii")}
->
-  <div className="account-type-text">
-    <strong>Investiții</strong>
-    <p>Pentru investiții și tranzacții pe termen lung</p>
-  </div>
-</button>
 
-<button
-  className={`account-type-option ${selectedAccountType === "Economii" ? "selected" : ""}`}
-  onClick={() => setSelectedAccountType("Economii")}
->
-  <div className="account-type-text">
-    <strong>Economii</strong>
-    <p>Pentru economisirea banilor și obiective financiare</p>
-  </div>
-</button>
+          {/* Afisează butoanele doar pentru tipurile de cont pe care userul NU le are deja */}
+          {creatableAccountTypes.map(type => (
+            !accounts.some(acc => acc.accountType === type.name) && (
+              <button
+                key={type.name}
+                className={`account-type-option ${selectedAccountType === type.name ? "selected" : ""}`}
+                onClick={() => setSelectedAccountType(type.name)}
+              >
+                <div className="account-type-text">
+                  <strong>{type.name}</strong>
+                  <p>{type.description}</p>
+                </div>
+              </button>
+            )
+          ))}
 
+          {/* Mesaj de eroare/succes pentru crearea contului */}
           {createAccountMessage && (
             <div className={`message-box ${createAccountMessageType}-message`}>
               {createAccountMessage}
@@ -523,7 +568,7 @@ const createAccount = async () => {
             <button
               className="submit-button"
               onClick={createAccount}
-              disabled={!selectedAccountType}
+              disabled={!selectedAccountType} // Butonul este dezactivat dacă nu s-a selectat un tip
             >
               Creează cont
             </button>
@@ -531,6 +576,7 @@ const createAccount = async () => {
         </div>
       )}
 
+      {/* Transfer Forms (remains unchanged) */}
       {showTransferForm && (
         <div className="transfer-modal">
           <h3 className="transfer-modal-title">
@@ -689,15 +735,19 @@ const createAccount = async () => {
       )}
 
       {/* Modal de confirmare pentru ștergerea contului */}
-      {showDeleteConfirm && accountToDelete && (
+      {showDeleteConfirm && (
         <div className="delete-modal">
           <h3 className="delete-modal-title">Confirmare ștergere cont</h3>
 
           <div className="delete-modal-content">
-            <p>
-              Sigur dorești să ștergi contul {accountToDelete.accountType} (
-              {accountToDelete.currency})?
-            </p>
+            {accountToDelete ? ( // Afișează detaliile contului doar dacă accountToDelete este setat
+                <p>
+                    Sigur dorești să ștergi contul {accountToDelete.accountType} (
+                    {accountToDelete.currency})?
+                </p>
+            ) : (
+                <p>Acest cont nu poate fi șters.</p> // Mesaj general dacă accountToDelete e null (e.g., pentru "Personal")
+            )}
 
             {deleteMessage && (
               <div className={`message-box ${deleteMessageType}-message`}>
@@ -709,16 +759,23 @@ const createAccount = async () => {
           <div className="modal-actions">
             <button
               className="cancel-button"
-              onClick={() => setShowDeleteConfirm(false)}
+              onClick={() => {
+                setShowDeleteConfirm(false);
+                setDeleteMessage(""); // Resetează mesajul la închidere
+                setDeleteMessageType("");
+              }}
             >
               Anulează
             </button>
-            <button
-              className="delete-confirm-button"
-              onClick={confirmDeleteAccount}
-            >
-              Șterge
-            </button>
+            {/* Butonul de ștergere este afișat doar dacă accountToDelete este setat și nu este un cont non-ștergibil */}
+            {accountToDelete && accountToDelete.accountType !== "Personal" && accountToDelete.accountType !== "Cont Curent" && (
+                <button
+                    className="delete-confirm-button"
+                    onClick={confirmDeleteAccount}
+                >
+                    Șterge
+                </button>
+            )}
           </div>
         </div>
       )}

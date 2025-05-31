@@ -72,43 +72,55 @@ namespace TrustPay.Controllers
                 return NotFound(new { message = "Utilizatorul nu a fost găsit." });
             }
 
-            // Verifică dacă utilizatorul are deja 3 conturi active
-            var existingAccounts = await _context.Accounts
+            // 1. Verifică dacă utilizatorul are deja 3 conturi active
+            var activeAccounts = await _context.Accounts
                 .Where(a => a.UserId == account.UserId && a.IsActive)
                 .ToListAsync();
 
-            if (existingAccounts.Count >= 3)
+            if (activeAccounts.Count >= 3)
             {
-                return BadRequest(new { message = "Ai deja numărul maxim de conturi permis (3 conturi)." });
+                return BadRequest(new { message = "Ai deja numărul maxim de conturi permis (3 conturi active)." });
             }
 
-            // Verifică dacă utilizatorul are deja un cont de același tip
-            bool hasDuplicateType = existingAccounts.Any(a => a.AccountType == account.AccountType);
-            if (hasDuplicateType)
+            // 2. Verifică dacă un cont de același tip a fost creat deja (indiferent dacă e activ sau nu)
+            var existingSameType = await _context.Accounts
+                .FirstOrDefaultAsync(a => a.UserId == account.UserId && a.AccountType == account.AccountType);
+
+            if (existingSameType != null && existingSameType.IsActive)
             {
-                return BadRequest(new { message = $"Ai deja un cont de tip {account.AccountType}. Nu poți crea conturi duplicate." });
+                return BadRequest(new { message = $"Ai deja un cont activ de tip {account.AccountType}." });
             }
 
-            // Validări suplimentare pentru tipurile de cont
-            var validAccountTypes = new[] { "Personal", "Cont Curent", "Economii", "Investitii" };
+            if (existingSameType != null && !existingSameType.IsActive)
+            {
+                // Resuscităm contul dezactivat
+                existingSameType.IsActive = true;
+                existingSameType.Balance = 0; // resetăm balanța dacă vrei
+                existingSameType.CreatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = $"Contul de tip {account.AccountType} a fost reactivat." });
+            }
+
+            // 3. Validăm tipul contului
+            var validAccountTypes = new[] { "Personal", "Economii", "Investitii","Calatorii" };
             if (!validAccountTypes.Contains(account.AccountType))
             {
                 return BadRequest(new { message = "Tipul de cont nu este valid." });
             }
 
-            // Verifică dacă utilizatorul încearcă să creeze conturi ce ar trebui să existe deja implicit
+            // 4. Opțional: restricționăm crearea anumitor tipuri
             if (account.AccountType == "Personal" || account.AccountType == "Cont Curent")
             {
-                return BadRequest(new { message = $"Contul {account.AccountType} ar trebui să existe deja în sistemul tău." });
+                return BadRequest(new { message = $"Contul {account.AccountType} ar trebui să existe deja implicit." });
             }
 
             try
             {
-                // Setări implicite
                 account.CreatedAt = DateTime.UtcNow;
                 account.IsActive = true;
-                account.Balance = 0; // Asigurăm că balanța inițială este 0
-                account.Currency = "RON"; // Asigurăm că moneda este RON
+                account.Balance = 0;
+                account.Currency = "RON";
 
                 _context.Accounts.Add(account);
                 await _context.SaveChangesAsync();
@@ -117,7 +129,7 @@ namespace TrustPay.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Eroare la salvarea contului în baza de date: " + ex.Message });
+                return StatusCode(500, new { message = "Eroare la salvarea contului: " + ex.Message });
             }
         }
 

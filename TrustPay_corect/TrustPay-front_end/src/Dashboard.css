@@ -1,6 +1,4 @@
-/* Dashboard CSS - Extras din stilurile inline */
 
-/* Stiluri pentru container și header */
 .app-container {
   font-family: "Roboto", sans-serif;
 }
@@ -9,10 +7,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px; /* Redus padding vertical pentru a lăsa mai mult spațiu logo-ului */
+  padding: 5px 20px; 
   background-color: #00796b;
   color: white;
-  height: 80px; /* Stabilim înălțimea fixă a header-ului */
+  height: 80px; 
 }
 
 .header-left {
@@ -28,18 +26,18 @@
 }
 
 .header-logo {
-  height: 78px !important; /* Logo-ul va ocupa aproape toată înălțimea benzii (80px - 2px pentru margini) */
-  width: auto !important; /* Păstrăm proporțiile */
+  height: 78px !important; 
+  width: auto !important; 
 }
 
 .logo-text {
   margin-left: 15px;
-  font-size: 16px; /* Redus pentru a se alinia cu restul textelor */
+  font-size: 16px; 
   font-weight: bold;
   color: #fff;
-  line-height: 1; /* Alinierea perfectă - ALINIAT */
+  line-height: 1; 
   display: flex;
-  align-items: center; /* Centrare verticală perfectă */
+  align-items: center; 
 }
 
 .header-right {
@@ -52,9 +50,9 @@
 .username {
   font-weight: 500;
   font-size: 16px;
-  line-height: 1; /* Alinierea perfectă - ALINIAT */
+  line-height: 1; 
   display: flex;
-  align-items: center; /* Centrare verticală perfectă */
+  align-items: center; 
 }
 
 .header-right button {
@@ -63,13 +61,13 @@
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
-  font-size: 16px; /* Aceeași mărime ca username și logo-text */
+  font-size: 16px; 
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  line-height: 1; /* Alinierea perfectă - ALINIAT */
+  line-height: 1; 
   display: flex;
-  align-items: center; /* Centrare verticală perfectă */
+  align-items: center; 
 }
 
 .header-right button:hover {
@@ -77,8 +75,7 @@
   transform: translateY(-1px);
 }
 
-/* Stiluri pentru secțiunea "Creează cont" */
-/* Stiluri pentru tabs de tip Chrome */
+
 .chrome-tabs-container {
   background-color: #f0f3f5;
   padding: 0 20px;
@@ -96,8 +93,7 @@
   overflow-x: auto;
   margin-right: auto;
 }
-/* Stiluri pentru modal crearea contului */
-/* Stiluri pentru tabs de tip Chrome */
+
 .chrome-tabs-container {
   background-color: #f0f3f5;
   padding: 0 20px;
@@ -114,7 +110,7 @@
   gap: 6px;
 }
 
-/* Stiluri pentru butonul Creează cont */
+
 .create-account-button {
   padding: 10px 20px;
   border-radius: 8px;
@@ -133,7 +129,7 @@
   border-color: #1557b0;
 }
 
-/* Stiluri pentru modal crearea contului */
+
 .create-account-modal {
   position: fixed;
   top: 50%;
@@ -258,7 +254,7 @@
   transform: none;
 }
 
-/* Stiluri pentru tabs de tip Chrome */
+
 .chrome-tabs-container {
   background-color: #f0f3f5;
   padding: 0 20px;
@@ -296,10 +292,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  overflow: hidden; /* Ascunde scroll-ul și aici */
+  overflow: hidden; 
 }
 
-/* Stiluri pentru conturi */
+
 .account-tab {
   background-color: #fff;
   border-radius: 16px;
@@ -330,7 +326,7 @@
   font-size: 20px;
   margin: 0 0 8px 0;
   color: #202124;
-  display: none; /* Ascundem titlul - va fi doar în tab */
+  display: none; 
 }
 
 .account-balance {
@@ -373,7 +369,7 @@
   color: white;
 }
 
-/* Stilul pentru butonul de ștergere - roșu */
+
 .delete-button {
   background-color: #ff3b30;
   color: white;
@@ -406,7 +402,7 @@
   border: 1px solid #d2e3fc;
 }
 
-/* Stiluri pentru lista de tranzacții */
+
 .transaction-history-container {
   margin-top: 20px;
   background-color: #f8f9fa;
@@ -470,7 +466,7 @@
   padding: 20px;
 }
 
-/* Stiluri pentru formular transfer */
+
 .transfer-modal {
   position: fixed;
   top: 50%;
@@ -504,7 +500,7 @@
   box-sizing: border-box;
 }
 
-/* Stiluri pentru mesaje */
+
 .message-box {
   margin-top: 20px;
   padding: 12px;
@@ -527,7 +523,7 @@
   color: #1967d2;
 }
 
-/* Stiluri pentru notificări */
+
 .notification {
   position: fixed;
   bottom: 20px;
@@ -559,7 +555,7 @@
   font-size: 16px;
 }
 
-/* Animații pentru modal */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -582,7 +578,7 @@
   }
 }
 
-/* Stiluri pentru modal de confirmare ștergere */
+
 .delete-modal {
   position: fixed;
   top: 50%;
@@ -626,7 +622,7 @@
   background-color: #e02d22;
 }
 
-/* Overlay pentru modals */
+
 .create-account-modal::backdrop,
 .transfer-modal::backdrop,
 .delete-modal::backdrop {

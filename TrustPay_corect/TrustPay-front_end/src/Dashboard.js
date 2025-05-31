@@ -31,6 +31,7 @@ function Dashboard({ user, onLogout }) {
   const [selectedAccountType, setSelectedAccountType] = useState("");
   const [createAccountMessage, setCreateAccountMessage] = useState("");
   const [createAccountMessageType, setCreateAccountMessageType] = useState("");
+  const [userAccounts, setUserAccounts] = useState([]);
 
   const navigate = useNavigate();
 
@@ -478,58 +479,94 @@ const createAccount = async () => {
           ))}
       </div>
 
-      {/* Create Account Modal */}
-      {showCreateAccountModal && (
-        <div className="create-account-modal">
-          <h3 className="create-account-modal-title">Creează cont nou</h3>
-<button
-  className={`account-type-option ${selectedAccountType === "Investitii" ? "selected" : ""}`}
-  onClick={() => setSelectedAccountType("Investitii")}
->
-  <div className="account-type-text">
-    <strong>Investiții</strong>
-    <p>Pentru investiții și tranzacții pe termen lung</p>
-  </div>
-</button>
+  {showCreateAccountModal && (
+  <div className="create-account-modal">
+    <h3 className="create-account-modal-title">Creează cont nou</h3>
 
-<button
-  className={`account-type-option ${selectedAccountType === "Economii" ? "selected" : ""}`}
-  onClick={() => setSelectedAccountType("Economii")}
->
-  <div className="account-type-text">
-    <strong>Economii</strong>
-    <p>Pentru economisirea banilor și obiective financiare</p>
-  </div>
-</button>
+    {(() => {
+      const allAccountTypes = [
+        {
+          type: "Personal",
+          title: "Cont Personal",
+          description: "Cont principal pentru cheltuieli personale",
+        },
+        {
+          type: "Economii",
+          title: "Economii",
+          description: "Pentru economisirea banilor și obiective financiare",
+        },
+        {
+          type: "Investitii",
+          title: "Investiții",
+          description: "Pentru investiții și tranzacții pe termen lung",
+        },
+        {
+          type: "Calatorii",
+          title: "Calatorii",
+          description: "Economisește pentru vacanțe, escapade de weekend și aventuri în jurul lumii"
+        },
+      ];
 
-          {createAccountMessage && (
-            <div className={`message-box ${createAccountMessageType}-message`}>
-              {createAccountMessage}
-            </div>
+      const createdAccountTypes = (userAccounts || []).map(acc => acc.accountType);
+
+      const availableToCreate = allAccountTypes.filter(
+        acc => !createdAccountTypes.includes(acc.type)
+      );
+
+      return (
+        <>
+          {availableToCreate.map(acc => (
+            <button
+              key={acc.type}
+              className={`account-type-option ${selectedAccountType === acc.type ? "selected" : ""}`}
+              onClick={() => setSelectedAccountType(acc.type)}
+            >
+              <div className="account-type-text">
+                <strong>{acc.title}</strong>
+                <p>{acc.description}</p>
+              </div>
+            </button>
+          ))}
+
+          {availableToCreate.length === 0 && (
+            <p className="no-more-accounts">
+              Ai deja toate tipurile de conturi permise.
+            </p>
           )}
+        </>
+      );
+    })()}
 
-          <div className="modal-actions">
-            <button
-              className="cancel-button"
-              onClick={() => {
-                setShowCreateAccountModal(false);
-                setSelectedAccountType("");
-                setCreateAccountMessage("");
-                setCreateAccountMessageType("");
-              }}
-            >
-              Anulează
-            </button>
-            <button
-              className="submit-button"
-              onClick={createAccount}
-              disabled={!selectedAccountType}
-            >
-              Creează cont
-            </button>
-          </div>
-        </div>
-      )}
+    {createAccountMessage && (
+      <div className={`message-box ${createAccountMessageType}-message`}>
+        {createAccountMessage}
+      </div>
+    )}
+
+    <div className="modal-actions">
+      <button
+        className="cancel-button"
+        onClick={() => {
+          setShowCreateAccountModal(false);
+          setSelectedAccountType("");
+          setCreateAccountMessage("");
+          setCreateAccountMessageType("");
+        }}
+      >
+        Anulează
+      </button>
+      <button
+        className="submit-button"
+        onClick={createAccount}
+        disabled={!selectedAccountType}
+      >
+        Creează cont
+      </button>
+    </div>
+  </div>
+)}
+
+
 
       {showTransferForm && (
         <div className="transfer-modal">

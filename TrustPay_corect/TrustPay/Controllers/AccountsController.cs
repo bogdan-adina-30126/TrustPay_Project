@@ -72,7 +72,7 @@ namespace TrustPay.Controllers
                 return NotFound(new { message = "Utilizatorul nu a fost găsit." });
             }
 
-            // 1. Verifică dacă utilizatorul are deja 3 conturi active
+            
             var activeAccounts = await _context.Accounts
                 .Where(a => a.UserId == account.UserId && a.IsActive)
                 .ToListAsync();
@@ -82,7 +82,6 @@ namespace TrustPay.Controllers
                 return BadRequest(new { message = "Ai deja numărul maxim de conturi permis (3 conturi active)." });
             }
 
-            // 2. Verifică dacă un cont de același tip a fost creat deja (indiferent dacă e activ sau nu)
             var existingSameType = await _context.Accounts
                 .FirstOrDefaultAsync(a => a.UserId == account.UserId && a.AccountType == account.AccountType);
 
@@ -93,23 +92,22 @@ namespace TrustPay.Controllers
 
             if (existingSameType != null && !existingSameType.IsActive)
             {
-                // Resuscităm contul dezactivat
+             
                 existingSameType.IsActive = true;
-                existingSameType.Balance = 0; // resetăm balanța dacă vrei
+                existingSameType.Balance = 0; 
                 existingSameType.CreatedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
 
                 return Ok(new { message = $"Contul de tip {account.AccountType} a fost reactivat." });
             }
 
-            // 3. Validăm tipul contului
             var validAccountTypes = new[] { "Personal", "Economii", "Investitii","Calatorii" };
             if (!validAccountTypes.Contains(account.AccountType))
             {
                 return BadRequest(new { message = "Tipul de cont nu este valid." });
             }
 
-            // 4. Opțional: restricționăm crearea anumitor tipuri
+         
             if (account.AccountType == "Personal" || account.AccountType == "Cont Curent")
             {
                 return BadRequest(new { message = $"Contul {account.AccountType} ar trebui să existe deja implicit." });
@@ -143,7 +141,7 @@ namespace TrustPay.Controllers
                 return NotFound();
             }
 
-            account.IsActive = false; // dezactivăm contul
+            account.IsActive = false;
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -46,7 +46,7 @@ namespace TrustPay.Controllers
         public async Task<IActionResult> GetUserAccounts(int userId)
         {
             var accounts = await _context.Accounts
-                .Where(a => a.UserId == userId && a.IsActive) // <-- adaugă această condiție
+                .Where(a => a.UserId == userId && a.IsActive)
                 .ToListAsync();
 
             return Ok(accounts);

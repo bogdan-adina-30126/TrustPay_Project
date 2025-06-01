@@ -85,11 +85,10 @@ namespace TrustPay.Controllers
             if (fromAccount.Balance < request.Amount)
                 return BadRequest("Fonduri insuficiente în contul sursă.");
 
-            // Realizăm transferul
+
             fromAccount.Balance -= request.Amount;
             toAccount.Balance += request.Amount;
 
-            // Salvăm tranzacția
             var transaction = new Transaction
             {
                 FromAccountId = request.FromAccountId,
@@ -199,9 +198,8 @@ namespace TrustPay.Controllers
         [HttpPost("transfer-between-users")]
         public async Task<IActionResult> TransferBetweenUsers([FromBody] TransferRequest transferRequest)
         {
-            // Căutăm utilizatorul sursă pe baza numelui de utilizator
             var fromUser = await _context.Users
-                .Include(u => u.Accounts) // Include conturile utilizatorului
+                .Include(u => u.Accounts) 
                 .FirstOrDefaultAsync(u => u.UserName == transferRequest.FromUserName);
 
             if (fromUser == null)
@@ -209,9 +207,8 @@ namespace TrustPay.Controllers
                 return NotFound(new { message = "Utilizatorul sursă nu a fost găsit." });
             }
 
-            // Căutăm utilizatorul destinație pe baza numelui de utilizator
             var toUser = await _context.Users
-                .Include(u => u.Accounts) // Include conturile utilizatorului
+                .Include(u => u.Accounts) 
                 .FirstOrDefaultAsync(u => u.UserName == transferRequest.ToUserName);
 
             if (toUser == null)
@@ -219,21 +216,20 @@ namespace TrustPay.Controllers
                 return NotFound(new { message = "Utilizatorul destinație nu a fost găsit." });
             }
 
-            // Căutăm contul principal al utilizatorului sursă automat
             var fromAccount = fromUser.Accounts.FirstOrDefault(a => a.AccountType == "Personal");
             if (fromAccount == null)
             {
                 return NotFound(new { message = "Contul principal al utilizatorului sursă nu a fost găsit." });
             }
 
-            // Căutăm contul principal al utilizatorului destinație automat
+   
             var toAccount = toUser.Accounts.FirstOrDefault(a => a.AccountType == "Personal");
             if (toAccount == null)
             {
                 return NotFound(new { message = "Contul principal al utilizatorului destinație nu a fost găsit." });
             }
 
-            // Verificăm dacă utilizatorul sursă are suficiente fonduri pentru transfer
+            
             if (fromAccount.Balance < transferRequest.Amount)
             {
                 return BadRequest(new { message = "Fonduri insuficiente." });
@@ -243,24 +239,23 @@ namespace TrustPay.Controllers
             {
                 return BadRequest(new { message = "Suma trebuie să aibă maximum 2 zecimale." });
             }
-            // Realizăm transferul (scădem suma din contul sursă și o adăugăm în contul destinație)
+          
             fromAccount.Balance -= transferRequest.Amount;
             toAccount.Balance += transferRequest.Amount;
 
-            // Creăm o tranzacție pentru a salva acest transfer în istoricul tranzacțiilor
+
             var transaction = new Transaction
             {
                 FromAccountId = fromAccount.AccountId,
                 ToAccountId = toAccount.AccountId,
                 Amount = transferRequest.Amount,
                 Currency = transferRequest.Currency,
-                TransactionType = transferRequest.TransactionType, // De obicei „Transfer”
+                TransactionType = transferRequest.TransactionType, 
                 TransactionDate = DateTime.UtcNow
             };
 
             _context.Transactions.Add(transaction);
 
-            // Salvăm schimbările în baza de date
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Transfer realizat cu succes!" });

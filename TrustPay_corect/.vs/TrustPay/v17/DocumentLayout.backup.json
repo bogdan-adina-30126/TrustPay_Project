@@ -38,8 +38,7 @@
               "RelativeToolTip": "TrustPay\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAADQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T20:07:58.776Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T20:07:58.776Z"
             },
             {
               "$type": "Document",
@@ -59,9 +58,9 @@
               "Title": "AccountsController.cs",
               "DocumentMoniker": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
               "RelativeDocumentMoniker": "TrustPay\\Controllers\\AccountsController.cs",
-              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs*",
-              "RelativeToolTip": "TrustPay\\Controllers\\AccountsController.cs*",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAqwGkAAABcAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Andrada\\Documents\\semestru 2\\proiect repository2\\TrustPay_Project\\TrustPay_corect\\TrustPay\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "TrustPay\\Controllers\\AccountsController.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAqwHEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T20:04:07.938Z",
               "EditorCaption": ""

@@ -28,6 +28,20 @@ namespace TrustPay.Controllers
             return await _context.Accounts.ToListAsync();
         }
 
+        // GET: api/Accounts/5 - ADĂUGAT pentru CreatedAtAction
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Account>> GetAccount(int id)
+        {
+            var account = await _context.Accounts.FindAsync(id);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return account;
+        }
+
         // GET: api/Accounts/user/5
         // Returnează conturile unui utilizator
         [HttpGet("user/{userId}")]
@@ -77,7 +91,7 @@ namespace TrustPay.Controllers
                 .Where(a => a.UserId == account.UserId && a.IsActive)
                 .ToListAsync();
 
-            if (activeAccounts.Count >= 3)
+            if (!creatableAccountTypes.Contains(account.AccountType))
             {
                 return BadRequest(new { message = "Ai deja numărul maxim de conturi permis (3 conturi active)." });
             }
@@ -138,7 +152,13 @@ namespace TrustPay.Controllers
             var account = await _context.Accounts.FindAsync(id);
             if (account == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Contul nu a fost găsit." });
+            }
+
+            // PREVINE ȘTERGEREA CONTULUI "PERSONAL"
+            if (account.AccountType == "Personal")
+            {
+                return BadRequest(new { message = "Contul Personal nu poate fi șters." });
             }
 
             account.IsActive = false;

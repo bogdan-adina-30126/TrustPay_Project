@@ -1006,23 +1006,35 @@
         "additionalProperties": false
       },
       "UserUpdateDto": {
+        "required": [
+          "adresa",
+          "email",
+          "telefon",
+          "userName"
+        ],
         "type": "object",
         "properties": {
           "userName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string"
           },
           "email": {
+            "maxLength": 100,
+            "minLength": 0,
             "type": "string",
-            "nullable": true
-          },
-          "adresa": {
-            "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "telefon": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 15,
+            "minLength": 0,
+            "pattern": "^\\+?[0-9]{7,15}$",
+            "type": "string"
+          },
+          "adresa": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string"
           }
         },
         "additionalProperties": false
